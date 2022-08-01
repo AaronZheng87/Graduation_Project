@@ -1,2 +1,1 @@
-# Graduation_Project
-Yuan-Rui Zheng's graduation project
+# Validate_Self-tagging
