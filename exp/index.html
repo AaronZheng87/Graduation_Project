@@ -75,7 +75,7 @@ let image_first = {
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
             show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1100,//出现100ms
+            show_end_time: 1050,//出现100ms
             scale: 0.8
         },
         {
@@ -89,19 +89,19 @@ let image_first = {
             font: `${50}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
 
             text_color: 'white',
-            show_start_time: 1200, // ms after the start of the trial
-            show_end_time: 1300,//出现100ms
+            show_start_time: 1150, // ms after the start of the trial
+            show_end_time: 1200,//出现100ms
             origin_center: true
           }
         ],
 
     choices:["m", 'n'],
-    response_start_time:1300,//开始作答时间
-    trial_duration:2800,//结束时间，一共作答时间持续1500ms
-    data:jsPsych.timelineVariable("identity"),
+    response_start_time:1200,//开始作答时间
+    trial_duration:2700,//结束时间，一共作答时间持续1500ms
+    data:jsPsych.timelineVariable("identify"),
     on_finish: function(data){
-        data.correct_response = jsPsych.timelineVariable("identity", true)();
-        data.correct = data.correct_respones == data.key_press//0错1对
+        data.correct_response = jsPsych.timelineVariable("identify", true)();
+        data.correct = data.correct_response == data.key_press//0错1对
     },
     data:{
         "Image":jsPsych.timelineVariable("Image"),//储存Image名称
@@ -142,21 +142,21 @@ let image_first = {
 ],
 
     timeline_variables:[
-        {Image:images[0], word:words[0], identity:function(){return key[0]}},
-        {Image:images[1], word:words[1], identity:function(){return key[0]}},
-        {Image:images[2], word:words[2], identity:function(){return key[0]}},
+        {Image:images[0], word:words[0], identify:function(){return key[0]}},
+        {Image:images[1], word:words[1], identify:function(){return key[0]}},
+        {Image:images[2], word:words[2], identify:function(){return key[0]}},
 
-        {Image:images[0], word:words[1], identity:function(){return key[1]}},
-        {Image:images[1], word:words[2], identity:function(){return key[1]}},
-        {Image:images[2], word:words[0], identity:function(){return key[1]}},
+        {Image:images[0], word:words[1], identify:function(){return key[1]}},
+        {Image:images[1], word:words[2], identify:function(){return key[1]}},
+        {Image:images[2], word:words[0], identify:function(){return key[1]}},
 
-        {Image:images[0], word:words[2], identity:function(){return key[1]}},
-        {Image:images[1], word:words[0], identity:function(){return key[1]}},
-        {Image:images[2], word:words[1], identity:function(){return key[1]}},
+        {Image:images[0], word:words[2], identify:function(){return key[1]}},
+        {Image:images[1], word:words[0], identify:function(){return key[1]}},
+        {Image:images[2], word:words[1], identify:function(){return key[1]}},
 
-        {Image:images[0], word:words[0], identity:function(){return key[0]}},
-        {Image:images[1], word:words[1], identity:function(){return key[0]}},
-        {Image:images[2], word:words[2], identity:function(){return key[0]}},
+        {Image:images[0], word:words[0], identify:function(){return key[0]}},
+        {Image:images[1], word:words[1], identify:function(){return key[0]}},
+        {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
     repetitions:1,
@@ -166,8 +166,66 @@ let image_first = {
  }
 timeline.push(image_first)
 
+///////block的反馈
+
+let feedback_block = {
+    type: "html-keyboard-response",
+    stimulus: function () {
+      // aaaaa = 1;  筛选，必须要！！！！！！！！！！！
+      let trials = jsPsych.data.get().filter(
+        [{ correct: true }, { correct: false }]
+      ).last(72);// last()填入一个block里的trial总数
+      let correct_trials = trials.filter({
+        correct: true
+      });
+      let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+      let rt = Math.round(correct_trials.select('rt').mean());
+      return "<style>.context{color:white; font-size: 30px;}</style>\
+                            <div><p class='context'>你正确回答了" + accuracy + "% 的试次。</p>" +
+        "<p class='context'>你的平均反应时为" + rt + "毫秒。</p>" +
+        "<p class='context'>请按任意键进入休息</p></div>";
+    },
+    on_finish: function () {
+      $("body").css("cursor", "default"); //鼠标出现
+    }
+  };
+  timeline.push(feedback_block);
 
 
+
+let blockTotalNum = 0;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+let rest = {
+  type:"html-button-response",
+  stimulus: function () {
+      let totaltrials = jsPsych.data.get().filter(
+        [{ correct: true }, { correct: false }]
+      );
+      return `
+                    <p>你当前还剩余${blockTotalNum}组实验</p>
+                    <p>现在是休息时间，当你结束休息后，你可以点击 结束休息 按钮 继续</p>
+                    <p>建议休息时间还剩余<span id="iii">60</span>秒</p>`
+    },
+    choices: ["结束休息"],
+    on_load: function () {
+      $("body").css("cursor", "default");
+      let tmpTime = setInterval(function () {
+        $("#iii").text(parseInt($("#iii").text()) - 1);
+        if (parseInt($("#iii").text()) < 1) {
+          $("#iii").parent().text("当前限定休息时间已到达，如果还未到达状态，请继续休息");
+          clearInterval(parseInt(sessionStorage.getItem("tmpInter")));
+        }
+      }, 1000);
+      sessionStorage.setItem("tmpInter", tmpTime);
+    },
+    on_finish: function () {
+      $("body").css("cursor", "none"); //鼠标消失
+      blockTotalNum -= 1;
+      $(document.body).unbind();
+      clearInterval(parseInt(sessionStorage.getItem("tmpInter")));
+    }
+  }
+
+  timeline.push(rest);
 
 
 
