@@ -75,9 +75,9 @@ let image_first = {
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
             show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1050,//出现100ms
+            show_end_time: 1050,//出现50ms
             scale: 0.8
-        },
+        },//上一组end时间减去下一组show时间就是空屏的100ms
         {
             obj_type: 'text',
             file: jsPsych.timelineVariable("word"),
@@ -90,14 +90,14 @@ let image_first = {
 
             text_color: 'white',
             show_start_time: 1150, // ms after the start of the trial
-            show_end_time: 1200,//出现100ms
+            show_end_time: 1200,//出现50ms
             origin_center: true
           }
         ],
 
     choices:["m", 'n'],
-    response_start_time:1200,//开始作答时间
-    trial_duration:2700,//结束时间，一共作答时间持续1500ms
+    response_start_time:1150,//开始作答时间，第二个刺激开始计算
+    trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:jsPsych.timelineVariable("identify"),
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
