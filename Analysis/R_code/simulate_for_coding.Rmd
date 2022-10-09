@@ -1,0 +1,95 @@
+---
+title: "simulation data"
+author: "郑元瑞"
+date: "2022-10-09"
+output: html_document
+---
+# simulating Mixed Effects
+
+## Setup
+```{r}
+library(tidyverse)
+library(lmerTest)
+library(faux)
+options("scipen"=10, "digits"=4) # control scientific notation
+set.seed(8675309)
+```
+
+## Random intercept
+
+### subjects
+```{r}
+sub_n <- 30
+sub_sd <- 100
+
+sub <- tibble(
+  sub_id = 1:sub_n, 
+  sub_i = rnorm(sub_n, 0, sub_sd)
+)
+```
+
+
+### trial
+```{r}
+trials <- crossing(
+  sub_id = sub$sub_id, 
+  valence = c("Good", "Bad", "Neutral"), 
+  matchness = c("match", "mismatch"), 
+  sequence = c("image_first", "word_first", "simultaneus")
+) %>% 
+  left_join(sub, by = "sub_id")
+df <- rbind(trials, trials, trials, trials,trials, trials)
+ToothGrowth <- ToothGrowth %>% 
+  mutate(con = rep(c("A", "B"), each= nrow(.)/2))
+
+ToothGrowth
+```
+
+```{r}
+summary(lm(len ~ supp*factor(dose)*con, ToothGrowth))
+```
+
+
+## calculate DV
+
+## Fixed effects
+```{r}
+grand_i <- 400
+val_eff <- 50
+m_eff <- 30
+seq_eff <- 40
+ixn <- 20
+error_sd <- 13
+```
+
+
+
+```{r}
+dat <- df %>% 
+  mutate(
+    m.e = recode(matchness, "match" = -0.5, "mismatch" = 0.5), 
+    val.e = recode(valence, "Bad" = -1/3, 
+                   "Good" = 2/3, 
+                   "Neutral" = -1/3), 
+    seq.e = recode(sequence, "word_first" = -1/3, 
+                   "simultaneus" = 2/3, 
+                   "image_first" = -1/3), 
+    err = rnorm(nrow(.), 0, error_sd), 
+    dv = grand_i + sub_i + err + (seq.e*seq_eff) + 
+      (m.e*m_eff) + (val.e*val_eff) + (ixn*seq.e*m.e*val.e)
+  )
+```
+
+```{r}
+dat
+```
+
+```{r}
+lmer(dv ~ valence*matchness*sequence + (1|sub_id), dat) %>% 
+  summary()
+```
+```{r}
+write_csv(dat, "simple_sim.csv",)
+
+```
+
