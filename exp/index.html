@@ -51,7 +51,7 @@ const preload = {
   }
 timeline.push(preload);//preload图片
 
-const words = ["好人", "坏人", "常人"]//储存文字
+const words = ["圆形", "方形", "三角"]//储存文字
 
 const key = ['m', 'n']//按键
 
@@ -116,7 +116,7 @@ var welcome = {
     html: function () {
       let data = localStorage.getItem(info["subj_idx"]) ? JSON.parse(localStorage.getItem(info["subj_idx"]))["BirthYear"] : "";
       return `<p>
-        <input name="Q0" type="number" value=${data} placeholder="1900~2020" min=1900 max=2020 oninput="if(value.length>4) value=value.slice(0,4)" required />
+        <input name="Q0" type="number" value=${data} placeholder="1900~2023" min=1900 max=2023 oninput="if(value.length>4) value=value.slice(0,4)" required />
         </p>`
     },
     button_label: '继续',
@@ -153,7 +153,36 @@ var welcome = {
     timeline: information,
   });
 
+//设置根据屏幕控制显示图形大小方位一致
+let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
+  $(window).resize(function () {
+    scale = Math.min($(document).width() / 1440, $(document).height() / 900);
+  });
 
+
+  var instructions = {/*待修改*/
+    type: "instructions",
+    pages: ['<p>实验说明：</p><p>您好，欢迎参加本次实验。本次实验大约需要30分钟完成。</p>',
+      '<p>任务概况：</p><p>本次实验您需要完成知觉匹配任务。</p><p>您将学习以下几种几何图形与不同标签的对应关系。</p>',
+      '<p>具体来说，在实验中，您需要注视电脑屏幕的中央及屏幕上出现的视觉内容。</p><p>屏幕上首先出现一个“+”，很快，“+”上方会出现一个几何图形，下方会出现文字信息。</p>',
+      '<p>接下来请您努力记下如下图形与文字的对应关系</p>',
+      '<img src="img/T_ambi40.png">' + '<p>三角</p>',
+      '<img src="img/C_ambi40.png">' + '<p>圆形</p>',
+      '<img src="img/S_ambi40.png">' + '<p>方形</p>',
+      '<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
+      '<p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约10分钟。</p>',
+      '<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>',
+      '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
+    ],
+    show_clickable_nav: true,
+    show_page_number: true,
+    button_label_previous: '返回',
+    button_label_next: '继续',
+    on_finish: function () {
+      $("body").css("cursor", "none");
+    } //鼠标消失术，放在要消失鼠标的前一个事件里
+  }
+  timeline.push(instructions);
 
 
 let image_first = {
@@ -165,8 +194,8 @@ let image_first = {
             obj_type: 'cross',
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
-            line_length: 30,
-            line_width: 5,
+            line_length: 62.5 * scale,
+            line_width: 5 * scale,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
             show_start_time: 500,
             show_end_time: 1000// ms after the start of the trial
@@ -176,9 +205,11 @@ let image_first = {
             file: jsPsych.timelineVariable("Image"),
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
+            font: (50).toString() + "px 'Arial'",
             show_start_time: 1000, // ms after the start of the trial
             show_end_time: 1050,//出现50ms
-            scale: 0.8
+            scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
+            origin_center: true//待确定
         },//上一组end时间减去下一组show时间就是空屏的100ms
         {
             obj_type: 'text',
@@ -188,12 +219,12 @@ let image_first = {
             content: function () {
               return jsPsych.timelineVariable('word', true);
             },
-            font: `${50}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
+            font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
 
             text_color: 'white',
             show_start_time: 1150, // ms after the start of the trial
             show_end_time: 1200,//出现50ms
-            origin_center: true
+            origin_center: true//带确定
           }
         ],
 
@@ -278,8 +309,8 @@ let word_first = {
             obj_type: 'cross',
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
-            line_length: 30,
-            line_width: 5,
+            line_length: 62.5 * scale,//pixels 视角：0.8° x 0.8°
+            line_width: 5 * scale,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
             show_start_time: 500,
             show_end_time: 1000// ms after the start of the trial
@@ -289,9 +320,10 @@ let word_first = {
             file: jsPsych.timelineVariable("Image"),
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
+            font: (50).toString() + "px 'Arial'",
             show_start_time: 1150, // ms after the start of the trial
             show_end_time: 1200,//出现50ms
-            scale: 0.8
+            scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
         },//上一组end时间减去下一组show时间就是空屏的100ms
         {
             obj_type: 'text',
@@ -301,7 +333,7 @@ let word_first = {
             content: function () {
               return jsPsych.timelineVariable('word', true);
             },
-            font: `${50}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
+            font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°, //字体和颜色设置 文字视角：3.6° x 1.6°
 
             text_color: 'white',
             show_start_time: 1000, // ms after the start of the trial
@@ -391,35 +423,36 @@ let word_first = {
             obj_type: 'cross',
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
-            line_length: 30,
-            line_width: 5,
+            line_length: 62.5 * scale, // pixels 视角：0.8° x 0.8°
+            line_width: 5 * scale,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
-            show_start_time: 470,
+            show_start_time: 500,
             show_end_time: 1100// ms after the start of the trial
         }, 
        {
             obj_type:"image",
             file: jsPsych.timelineVariable("Image"),
             startX: "center", // location of the cross's center in the canvas
-            startY: 280,
+            startY: -165.29 * scale, //图形和文字距离 与加号等距
+            font: (50).toString() + "px 'Arial'",
             show_start_time: 1000, // ms after the start of the trial
             show_end_time: 1100,//出现50ms
-            scale: 0.8
+            scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
+            origin_center: true
         },//上一组end时间减去下一组show时间就是空屏的100ms
         {
             obj_type: 'text',
             file: jsPsych.timelineVariable("word"),
             startX: "center",
-            startY: 520, //图形和文字距离 与加号等距
+            startY: 165.29 * scale, //图形和文字距离 与加号等距
             content: function () {
-              return jsPsych.timelineVariable('word', true);
+              return jsPsych.timelineVariable("word", true);
             },
-            font: `${50}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
-
+            font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
             text_color: 'white',
             show_start_time: 1000, // ms after the start of the trial
             show_end_time: 1100,//出现50ms
-            //origin_center: true
+            origin_center: true
           }
         ],
 
