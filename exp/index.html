@@ -54,8 +54,9 @@ timeline.push(preload);//preload图片
 const words = ["圆形", "方形", "三角"]//储存文字
 
 const key = ['m', 'n']//按键
-
+//正确率70%
 let acc = 70;
+let view_texts_images = [];
 
 var welcome = {
     type: "html-keyboard-response",
@@ -169,7 +170,7 @@ let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
       '<img src="img/T_ambi40.png">' + '<p>三角</p>',
       '<img src="img/C_ambi40.png">' + '<p>圆形</p>',
       '<img src="img/S_ambi40.png">' + '<p>方形</p>',
-      '<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
+      '<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“m”</strong>键，否则按<strong>“n”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
       '<p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约10分钟。</p>',
       '<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>',
       '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
@@ -183,6 +184,246 @@ let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
     } //鼠标消失术，放在要消失鼠标的前一个事件里
   }
   timeline.push(instructions);
+
+
+
+
+
+
+
+  let prac_i = {
+    timeline:[
+    {
+    type:"psychophysics", 
+    stimuli:[
+        {
+            obj_type: 'cross',
+            startX: "center", // location of the cross's center in the canvas
+            startY: "center",
+            line_length: 62.5 * scale,
+            line_width: 5 * scale,
+            line_color: 'white', // You can use the HTML color name instead of the HEX color.
+            show_start_time: 500,
+            show_end_time: 1000// ms after the start of the trial
+        }, 
+        {
+            obj_type:"image",
+            file: jsPsych.timelineVariable("Image"),
+            startX: "center", // location of the cross's center in the canvas
+            startY: "center",
+            font: (50).toString() + "px 'Arial'",
+            show_start_time: 1000, // ms after the start of the trial
+            show_end_time: 1050,//出现50ms
+            scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
+            origin_center: true//待确定
+        },//上一组end时间减去下一组show时间就是空屏的100ms
+        {
+            obj_type: 'text',
+            file: jsPsych.timelineVariable("word"),
+            startX: "center",
+            startY: "center", //图形和文字距离 与加号等距
+            content: function () {
+              return jsPsych.timelineVariable('word', true);
+            },
+            font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
+
+            text_color: 'white',
+            show_start_time: 1150, // ms after the start of the trial
+            show_end_time: 1200,//出现50ms
+            origin_center: true//带确定
+          }
+        ],
+
+    choices:["m", 'n'],
+    response_start_time:1150,//开始作答时间，第二个刺激开始计算
+    trial_duration:2650,//结束时间，一共作答时间持续1500ms
+    data:jsPsych.timelineVariable("identify"),
+    on_finish: function(data){
+        data.correct_response = jsPsych.timelineVariable("identify", true)();
+        data.correct = data.correct_response == data.key_press//0错1对
+    },
+    data:{
+        "Image":jsPsych.timelineVariable("Image"),//储存Image名称
+        "word":jsPsych.timelineVariable("word"),//储存文字
+        //"condition":jsPsych.timelineVariable("image_first")
+    }, 
+    data:{
+        "condition":"prac_image_first"//储存condition，在这里为image_first，先出现图片
+    }
+},
+{
+    data:{
+        screen_id: "feedback_test"//这里为反馈
+    },
+    type:"html-keyboard-response",
+    stimulus:function(){
+        let keypress = jsPsych.data.get().last(1).values()[0].key_press; // 被试按键
+          //let trial_keypress = jsPsych.data.get().last(1).values()[0].correct; //该trial正确的按键
+          let time = jsPsych.data.get().last(1).values()[0].rt;
+          let trial_correct_response = jsPsych.data.get().last(1).values()[0].correct_response;//该trial正确的按键
+          if (time > 1500 || time === null) { //大于1500或为null为过慢
+            return "<span class='add_' style='color:yellow; font-size: 30px;'> 太慢! </span>"
+          } else if (time < 200) { //小于两百为过快反应
+            return "<span style='color:yellow; font-size: 30px;'>过快! </span>"
+          } else {
+            if (keypress == trial_correct_response) { //如果按键 == 正确按键
+              return "<span style='color:GreenYellow; font-size: 30px;'>正确! </span>"
+            }
+            else {
+              return "<span style='color:red; font-size: 30px;'>错误! </span>"
+            }
+          }
+    },
+
+    choices:jsPsych.NO_KEYS,
+    trial_duration:300,//300ms反馈
+}
+],
+
+    timeline_variables:[
+        {Image:images[0], word:words[0], identify:function(){return key[0]}},
+        {Image:images[1], word:words[1], identify:function(){return key[0]}},
+        {Image:images[2], word:words[2], identify:function(){return key[0]}},
+
+        {Image:images[0], word:words[1], identify:function(){return key[1]}},
+        {Image:images[1], word:words[2], identify:function(){return key[1]}},
+        {Image:images[2], word:words[0], identify:function(){return key[1]}},
+
+        {Image:images[0], word:words[2], identify:function(){return key[1]}},
+        {Image:images[1], word:words[0], identify:function(){return key[1]}},
+        {Image:images[2], word:words[1], identify:function(){return key[1]}},
+
+        {Image:images[0], word:words[0], identify:function(){return key[0]}},
+        {Image:images[1], word:words[1], identify:function(){return key[0]}},
+        {Image:images[2], word:words[2], identify:function(){return key[0]}},
+    ],
+    randomize_order:true,
+    repetitions:1,//正是实验时改为6
+    on_finish:function(){
+        $("body").css("cursor", "default"); //鼠标出现
+    }
+ }
+
+
+ var feedback_p = {
+    type: "html-keyboard-response",
+    stimulus: function () {
+      let trials = jsPsych.data.get().filter(
+        [{ correct: true }, { correct: false }]
+      ).last(12); // 运行逻辑：先挑出data里的所有的correct：true/false的数据行，成为新的数组，然后对倒数的某几组进行计算
+      //这里填入timeline_variables里面的trial数量
+      let correct_trials = trials.filter({
+        correct: true
+      });
+      let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+      let rt = Math.round(correct_trials.select('rt').mean());
+      return "<style>.context{color:white; font-size: 30px;}</style>\
+                            <div><p class='context'>你正确回答了" + accuracy + "% 的试次。</p>" +
+        "<p class='context'>你的平均反应时为" + rt + "毫秒。</p>";
+    }
+  }
+
+
+
+var feedback_continue_practice1 = { //在这里呈现文字recap，让被试再记一下
+    type: "instructions",
+    pages: function () {
+      // let tmpT = [
+      //   '<p>您的正确率未达到练习要求。</p>',
+      //   '<p>请您努力记下如下匹配对应关系，再次进行练习。</p>'
+      // ]
+      // view_texts_images.forEach(v => {
+      //   tmpT.push(v)
+      // })
+      // tmpT.push(
+      //   `<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“${key[0]}”</strong>键，否则按<strong>“${key[1]}”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>`,
+      //   '<p> 如果你明白了规则，请按任意键继续练习。</p>'
+      // )
+      let start = "<p class='header'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
+        middle = "<p class='footer'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+        end = "<p>如果你明白了规则：</p><p>请按 继续 进入练习</p><div>";
+      let tmpI = "";
+      view_texts_images.forEach(v => {
+        tmpI += `<p class="content">${v}</p>`;
+      });
+      return ["<p class='header'>您的正确率未达到进入正式实验的要求。</p>",
+        start + `<div class="box">${tmpI}</div>` +
+        `<p class='footer'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+        middle + end];
+    },
+    show_clickable_nav: true,
+    show_page_number: true,
+    button_label_previous: '返回',
+    button_label_next: '继续',
+    on_finish: function () {
+      $("body").css("cursor", "none");
+    }
+  }
+
+
+var if_node = { //if_node 用于判断是否呈现feedback，feedback_continue_practice
+    timeline: [feedback_p, feedback_continue_practice1],
+    conditional_function: function (data) {
+      var trials = jsPsych.data.get().filter(
+        [{ correct: true }, { correct: false }]
+      ).last(12);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
+      var correct_trials = trials.filter({
+        correct: true
+      });
+      var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+      if (accuracy >= acc) {
+        return false;//达标就skip掉feedback_continue_practice这一段
+      } else if (accuracy < acc) { //没达标反馈feedback,feedback_continue_practice
+        return true;
+      }
+    }
+  }
+
+
+
+  var loop_node = {
+    timeline: [prac_i, if_node],
+    loop_function: function () {
+      var trials = jsPsych.data.get().filter(
+        [{ correct: true }, { correct: false }]
+      ).last(12);//记得改，取数据
+      var correct_trials = trials.filter({
+        correct: true
+      });
+      var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+      if (accuracy >= acc) {
+        return false;//end 进入正式实验前的反馈
+      } else if (accuracy < acc) { // repeat
+        return true;
+      }
+    }
+  }
+  timeline.push(loop_node);
+
+
+
+var feedback_goformal = {
+    type: "html-keyboard-response",
+    stimulus: function () {
+      let trials = jsPsych.data.get().filter(
+        [{ correct: true }, { correct: false }]
+      ).last(12);
+      let correct_trials = trials.filter({
+        correct: true
+      });
+      let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+      let rt = Math.round(correct_trials.select('rt').mean());
+      return "<style>.context{color:white; font-size: 30px;}</style>\
+                            <div><p class='context'>你正确回答了" + accuracy + "% 的试次。</p>" +
+        "<p class='context'>你的平均反应时为" + rt + "毫秒。</p>" +
+        "<p class='context'>恭喜你完成练习。按任意键进入正式实验。</p></div>";
+    },
+    on_finish: function () {
+      $("body").css("cursor", "none");
+    }
+  }
+  timeline.push(feedback_goformal);
+
 
 
 let image_first = {
@@ -537,7 +778,7 @@ let feedback_block = {
       // aaaaa = 1;  筛选，必须要！！！！！！！！！！！
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);// last()填入一个block里的trial总数
+      ).last(12);// last()填入一个block里的trial总数
       let correct_trials = trials.filter({
         correct: true
       });
@@ -650,6 +891,7 @@ let rest_same = {
       clearInterval(parseInt(sessionStorage.getItem("tmpInter")));
     }
   }
+
 
 
   var repeatblock1 = {
