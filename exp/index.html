@@ -41,6 +41,19 @@ var fullscreen_trial = {
   }
   timeline.push(fullscreen_trial);//将全屏设置放入到时间线里
 
+
+  function permutation(arr, num) { //定义排列组合的function
+    var r = [];
+    (function f(t, a, n) {
+      if (n == 0) return r.push(t);
+      for (var i = 0, l = a.length; i < l; i++) {
+        f(t.concat(a[i]), a.slice(0, i).concat(a.slice(i + 1)), n - 1);
+      }
+    })([], arr, num);
+    return r;
+  }
+
+
 const images = ['img/C_ambi40.png', 
 'img/S_ambi40.png', 
 'img/T_ambi40.png']
@@ -51,9 +64,9 @@ const preload = {
   }
 timeline.push(preload);//preload图片
 
-const words = ["圆形", "方形", "三角"]//储存文字
+var words = ["圆形", "方形", "三角"]//储存文字
 
-const key = ['m', 'n']//按键
+var key = ['f', 'j']//按键
 //正确率70%
 let acc = 70;
 let view_texts_images = [];
@@ -103,6 +116,12 @@ var welcome = {
     button_label: "继续",
     on_finish: function (data) {
       info["ID"] = data.response.Q0;
+      key = permutation(key, 2)[parseInt(info["ID"]) % 2] //对应的按键
+      view_texts_images = [] //指导语中呈现的图片和文字对应关系
+      jsPsych.randomization.shuffle(images).forEach((v, i) => { //将image随机
+        view_texts_images.push(`<img src="${v}">---${words[images.indexOf(v)]}`); //image编号和文字对应
+      })
+
     }
   }, {
     type: "html-button-response",
@@ -163,18 +182,36 @@ let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
 
   var instructions = {/*待修改*/
     type: "instructions",
-    pages: ['<p>实验说明：</p><p>您好，欢迎参加本次实验。本次实验大约需要30分钟完成。</p>',
-      '<p>任务概况：</p><p>本次实验您需要完成知觉匹配任务。</p><p>您将学习以下几种几何图形与不同标签的对应关系。</p>',
-      '<p>具体来说，在实验中，您需要注视电脑屏幕的中央及屏幕上出现的视觉内容。</p><p>屏幕上首先出现一个“+”，很快，“+”上方会出现一个几何图形，下方会出现文字信息。</p>',
-      '<p>接下来请您努力记下如下图形与文字的对应关系</p>',
-      '<img src="img/T_ambi40.png">' + '<p>三角</p>',
-      '<img src="img/C_ambi40.png">' + '<p>圆形</p>',
-      '<img src="img/S_ambi40.png">' + '<p>方形</p>',
-      '<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“m”</strong>键，否则按<strong>“n”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
-      '<p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约10分钟。</p>',
-      '<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>',
-      '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
-    ],
+    pages: function () {
+      // let tmpT = [
+      //   '<p>实验说明：</p><p>您好，欢迎参加本次实验。本次实验大约需要10分钟完成。</p>',
+      //   '<p>任务概况：</p><p>本次实验您需要完成知觉匹配任务。</p><p>您将学习以下几种几何图形与不同标签的对应关系。</p>',
+      //   '<p>具体来说，在实验中，您需要注视电脑屏幕的中央及屏幕上出现的视觉内容。</p><p>屏幕上首先出现一个“+”，很快，“+”上方会出现一个几何图形，下方会出现文字信息。</p>',
+      //   '<p>接下来请您努力记下如下图形与文字的对应关系</p>',
+      // ]
+      // view_texts_images.forEach(v => {
+      //   tmpT.push(v);
+      // })
+      // // 
+      // tmpT.push(
+      //   `<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“${key[0]}”</strong>键，否则按<strong>“${key[1]}”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>`,
+      //   '<p>您将首先完成12次按键的匹配任务练习。</p><p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约15分钟。</p>',
+      //   '<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>',
+      //   '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
+      // )
+      let start = "<p class='header'>请您记住如下对应关系:</p>",
+        middle = "<p class='footer'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+        end = "<p>如果你明白了规则：</p><p>请按 继续 进入练习</p><div>";
+      let tmpI = "";
+      view_texts_images.forEach(v => {
+        tmpI += `<p class="content">${v}</p>`;
+      });
+      return ["<p class='header'>实验说明：</p><p>您好，欢迎参加本实验。本次实验大约需要15分钟完成。</p><p>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p>您将学习几种几何图形与不同标签的对应关系。</p>",
+        start + `<div class="box">${tmpI}</div>` +
+        `<p class='footer'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+        `<p>您将首先完成12次按键的匹配任务练习。</p><p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约15分钟。</p>`,
+        middle + end];
+    },
     show_clickable_nav: true,
     show_page_number: true,
     button_label_previous: '返回',
@@ -234,7 +271,7 @@ let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
           }
         ],
 
-    choices:["m", 'n'],
+    choices: ['f', 'j'],
     response_start_time:1150,//开始作答时间，第二个刺激开始计算
     trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:jsPsych.timelineVariable("identify"),
@@ -469,7 +506,7 @@ let image_first = {
           }
         ],
 
-    choices:["m", 'n'],
+        choices: ['f', 'j'],
     response_start_time:1150,//开始作答时间，第二个刺激开始计算
     trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:jsPsych.timelineVariable("identify"),
@@ -583,7 +620,7 @@ let word_first = {
           }
         ],
 
-    choices:["m", 'n'],
+        choices: ['f', 'j'],
     response_start_time:1150,//开始作答时间，第二个刺激开始计算
     trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:jsPsych.timelineVariable("identify"),
@@ -697,7 +734,7 @@ let word_first = {
           }
         ],
 
-    choices:["m", 'n'],
+        choices: ['f', 'j'],
     response_start_time:1100,//开始作答时间，第二个刺激开始计算
     trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:jsPsych.timelineVariable("identify"),
@@ -926,7 +963,7 @@ let rest_same = {
 jsPsych.init({
     timeline: timeline,
     on_finish: function() {
-    jsPsych.data.get().filter({ save: true }).localSave('csv', info["ID"] + '.csv'); 
+    jsPsych.data.get().localSave('csv', info["ID"] + '.csv'); 
     document.exitFullscreen(); // 退出全屏
     let bodyNode = document.getElementsByTagName("body"); // 获取Body窗体
     for (let i = 0; i < bodyNode.length; i++) {
