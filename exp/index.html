@@ -216,6 +216,9 @@ let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
     show_page_number: true,
     button_label_previous: '返回',
     button_label_next: '继续',
+    on_load: () => {
+      $("body").css("cursor", "default");
+    },
     on_finish: function () {
       $("body").css("cursor", "none");
     } //鼠标消失术，放在要消失鼠标的前一个事件里
@@ -337,7 +340,7 @@ let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
     randomize_order:true,
     repetitions:1,//正是实验时改为6
     on_finish:function(){
-        $("body").css("cursor", "default"); //鼠标出现
+        // $("body").css("cursor", "default"); //鼠标出现
     }
  }
 
@@ -394,6 +397,9 @@ var feedback_continue_practice1 = { //在这里呈现文字recap，让被试再�
     button_label_next: '继续',
     on_finish: function () {
       $("body").css("cursor", "none");
+    },
+    on_load: () => {
+      $("body").css("cursor", "default");
     }
   }
 
@@ -546,7 +552,7 @@ var prac_w = {
     randomize_order:true,
     repetitions:1,//正是实验时改为6
     on_finish:function(){
-        $("body").css("cursor", "default"); //鼠标出现
+        // $("body").css("cursor", "default"); //鼠标出现
     }
  }
 
@@ -604,7 +610,10 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     button_label_next: '继续',
     on_finish: function () {
       $("body").css("cursor", "none");
-    }
+    },
+    on_load: () => {
+      $("body").css("cursor", "default");
+    },
   }
 
 
@@ -756,7 +765,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     randomize_order:true,
     repetitions:1,//正是实验时改为6
     on_finish:function(){
-        $("body").css("cursor", "default"); //鼠标出现
+        // $("body").css("cursor", "default"); //鼠标出现
     }
  } 
 
@@ -812,6 +821,9 @@ var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再�
     show_page_number: true,
     button_label_previous: '返回',
     button_label_next: '继续',
+    on_load: () => {
+      $("body").css("cursor", "default");
+    },
     on_finish: function () {
       $("body").css("cursor", "none");
     }
@@ -994,7 +1006,7 @@ let image_first = {
     randomize_order:true,
     repetitions:1,//正是实验时改为6
     on_finish:function(){
-        $("body").css("cursor", "default"); //鼠标出现
+        // $("body").css("cursor", "default"); //鼠标出现
     }
  }
 
@@ -1108,7 +1120,7 @@ let word_first = {
     randomize_order:true,
     repetitions:1,//正是实验时改为6
     on_finish:function(){
-        $("body").css("cursor", "default"); //鼠标出现
+        // $("body").css("cursor", "default"); //鼠标出现
     }
  }
 
@@ -1222,7 +1234,7 @@ let word_first = {
     randomize_order:true,
     repetitions:1,//正是实验时改为6
     on_finish:function(){
-        $("body").css("cursor", "default"); //鼠标出现
+        // $("body").css("cursor", "default"); //鼠标出现
     }
  }
 
@@ -1249,7 +1261,7 @@ let feedback_block = {
         "<p class='context'>请按任意键进入休息</p></div>";
     },
     on_finish: function () {
-      $("body").css("cursor", "default"); //鼠标出现
+      // $("body").css("cursor", "default"); //鼠标出现
     }
   };
 
