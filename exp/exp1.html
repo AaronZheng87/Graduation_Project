@@ -263,15 +263,10 @@ let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
     data:jsPsych.timelineVariable("identify"),
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
-        data.correct = data.correct_response == data.key_press//0错1对
-    },
-    data:{
-        "Image":jsPsych.timelineVariable("Image"),//储存Image名称
-        "word":jsPsych.timelineVariable("word"),//储存文字
-        //"condition":jsPsych.timelineVariable("image_first")
-    }, 
-    data:{
-        "condition":"prac_image_first"//储存condition，在这里为image_first，先出现图片
+        data.correct = data.correct_response == data.key_press;//0错1对
+        data.Image = jsPsych.timelineVariable("Image");
+        data.word = jsPsych.timelineVariable("word");
+        data.condition = "prac_image_first"
     }
 },
 {
@@ -464,15 +459,10 @@ var prac_w = {
     data:jsPsych.timelineVariable("identify"),
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
-        data.correct = data.correct_response == data.key_press//0错1对
-    },
-    data:{
-        "Image":jsPsych.timelineVariable("Image"),//储存Image名称
-        "word":jsPsych.timelineVariable("word"),//储存文字
-        //"condition":jsPsych.timelineVariable("image_first")
-    }, 
-    data:{
-        "condition":"prac_word_first"//储存condition，在这里为word_first，先出现文字
+        data.correct = data.correct_response == data.key_press;//0错1对
+        data.Image = jsPsych.timelineVariable("Image");
+        data.word = jsPsych.timelineVariable("word");
+        data.condition = "prac_word_first"
     }
 },
 {
@@ -677,15 +667,10 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     data:jsPsych.timelineVariable("identify"),
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
-        data.correct = data.correct_response == data.key_press//0错1对
-    },
-    data:{
-        "Image":jsPsych.timelineVariable("Image"),//储存Image名称
-        "word":jsPsych.timelineVariable("word"),//储存文字
-        //"condition":jsPsych.timelineVariable("image_first")
-    }, 
-    data:{
-        "condition":"prac_simultaneous"//储存condition，在这里为image_first，先出现图片
+        data.correct = data.correct_response == data.key_press;//0错1对
+        data.Image = jsPsych.timelineVariable("Image");
+        data.word = jsPsych.timelineVariable("word");
+        data.condition = "prac_simultaneous"
     }
 },
 {
@@ -919,15 +904,10 @@ let image_first = {
     data:jsPsych.timelineVariable("identify"),
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
-        data.correct = data.correct_response == data.key_press//0错1对
-    },
-    data:{
-        "Image":jsPsych.timelineVariable("Image"),//储存Image名称
-        "word":jsPsych.timelineVariable("word"),//储存文字
-        //"condition":jsPsych.timelineVariable("image_first")
-    }, 
-    data:{
-        "condition":"image_first"//储存condition，在这里为image_first，先出现图片
+        data.correct = data.correct_response == data.key_press;//0错1对
+        data.Image = jsPsych.timelineVariable("Image");
+        data.word = jsPsych.timelineVariable("word");
+        data.condition = "image_first"
     }
 },
 {
@@ -1033,15 +1013,10 @@ let word_first = {
     data:jsPsych.timelineVariable("identify"),
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
-        data.correct = data.correct_response == data.key_press//0错1对
-    },
-    data:{
-        "Image":jsPsych.timelineVariable("Image"),//储存Image名称
-        "word":jsPsych.timelineVariable("word"),//储存文字
-        //"condition":jsPsych.timelineVariable("image_first")
-    }, 
-    data:{
-        "condition":"word_first"//储存condition，在这里为word_first，先出现文字
+        data.correct = data.correct_response == data.key_press;//0错1对
+        data.Image = jsPsych.timelineVariable("Image");
+        data.word = jsPsych.timelineVariable("word");
+        data.condition = "word_first"
     }
 },
 {
@@ -1147,15 +1122,10 @@ let word_first = {
     data:jsPsych.timelineVariable("identify"),
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
-        data.correct = data.correct_response == data.key_press//0错1对
-    },
-    data:{
-        "Image":jsPsych.timelineVariable("Image"),//储存Image名称
-        "word":jsPsych.timelineVariable("word"),//储存文字
-        //"condition":jsPsych.timelineVariable("image_first")
-    }, 
-    data:{
-        "condition":"simultaneous"//储存condition，在这里为image_first，先出现图片
+        data.correct = data.correct_response == data.key_press;//0错1对
+        data.Image = jsPsych.timelineVariable("Image");
+        data.word = jsPsych.timelineVariable("word");
+        data.condition = "simultaneous"
     }
 },
 {
@@ -1205,7 +1175,7 @@ let word_first = {
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:6,//正是实验时改为6
+    repetitions:1,//正是实验时改为6
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
