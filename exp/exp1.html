@@ -1359,21 +1359,21 @@ let rest_same = {
 
   var repeatblock1 = {
     timeline:[image_first, feedback_block, rest_image],
-    repetitions: blockTotalNum_image
+    repetitions: 4 //4个block
   };
   timeline.push(repeatblock1);
   timeline.push(p_gotoword)
 
   var repeatblock2 = {
     timeline:[word_first, feedback_block, rest_word],
-    repetitions: blockTotalNum_word
+    repetitions: 4
   };
   timeline.push(repeatblock2);
   timeline.push(p_gotosame)
 
   var repeatblock3 = {
     timeline:[same, feedback_block, rest_same],
-    repetitions: blockTotalNum_same
+    repetitions: 4
   };
   timeline.push(repeatblock3);
 
