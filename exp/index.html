@@ -425,7 +425,6 @@
     let feedback_block = {
         type: "html-keyboard-response",
         stimulus: function () {
-            // aaaaa = 1;  筛选，必须要！！！！！！！！！！！
             let trials = jsPsych.data.get().filter(
                 [{ correct: true }, { correct: false }]
             ).last(12);// last()填入一个block里的trial总数
@@ -444,7 +443,7 @@
         }
     };
 
-    let blockTotalNum_image = 1;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+    let blockTotalNum_image = 3;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
     let rest_image = {
         type: "html-button-response",
         stimulus: function () {
@@ -476,7 +475,7 @@
         }
     }
 
-    let blockTotalNum_word = 1;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+    let blockTotalNum_word = 3;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
     let rest_word = {
         type: "html-button-response",
         stimulus: function () {
@@ -510,7 +509,7 @@
 
 
 
-    let blockTotalNum_same = 0;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+    let blockTotalNum_same = 3;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
     let rest_same = {
         type: "html-button-response",
         stimulus: function () {
