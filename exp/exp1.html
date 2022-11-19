@@ -1208,7 +1208,7 @@ let feedback_block = {
     }
   };
 
-  let blockTotalNum_image = 1;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+  let blockTotalNum_image = 0;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
   let rest_image = {
   type:"html-button-response",
   stimulus: function () {
@@ -1240,7 +1240,7 @@ let feedback_block = {
     }
   }
 
-let blockTotalNum_word = 1;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+let blockTotalNum_word = 0;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
 let rest_word = {
   type:"html-button-response",
   stimulus: function () {
@@ -1354,28 +1354,58 @@ let cong_image = {
     choices: jsPsych.ALL_KEYS,
   };
 
-  var repeatblock1 = {
-    timeline:[image_first, feedback_block, rest_image],
-    repetitions: 1 //4个block
-  };
-  timeline.push(repeatblock1);
-  timeline.push(cong_image);
-  timeline.push(p_gotoword);
+  var repeatblock1 = [
+        {
+            timeline: [image_first, feedback_block, rest_image],
+            repetitions: 1 //4个block
+        },
+        cong_image
+    ];
 
-  var repeatblock2 = {
-    timeline:[word_first, feedback_block, rest_word],
-    repetitions: 1
-  };
-  timeline.push(repeatblock2);
-  timeline.push(cong_word);
-  timeline.push(p_gotosame);
+    var repeatblock2 = [
+        p_gotoword,
+        {
+            timeline: [word_first, feedback_block, rest_word],
+            repetitions: 1
+        },
+        cong_word
+    ];
 
-  var repeatblock3 = {
-    timeline:[same, feedback_block, rest_same],
-    repetitions: 1
-  };
-  timeline.push(repeatblock3);
-  timeline.push(cong_same);
+    var repeatblock3 = [
+        p_gotosame,
+        {
+            timeline: [same, feedback_block, rest_same],
+            repetitions: 1
+        },
+        cong_same
+    ];
+    timeline.push({
+        timeline: [{
+            timeline: repeatblock1,
+            conditional_function: () => {
+                return jsPsych.timelineVariable("a", true) == 1
+            }
+        }, {
+            timeline: repeatblock2,
+            conditional_function: () => {
+                return jsPsych.timelineVariable("a", true) == 2
+            }
+        }, {
+            timeline: repeatblock3,
+            conditional_function: () => {
+                return jsPsych.timelineVariable("a", true) == 3
+            }
+        }],
+        timeline_variables: jsPsych.randomization.factorial({
+            a: jsPsych.randomization.shuffleNoRepeats(
+                jsPsych.randomization.repeat([1,2,3], 1)
+            )
+        })
+    });
+
+
+
+
 
   var finish = {
     type:"html-keyboard-response", 
