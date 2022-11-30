@@ -1420,12 +1420,12 @@ let cong_image = {
                 return jsPsych.timelineVariable("a", true) == 3
             }
         }],
-        timeline_variables: function(){jsPsych.randomization.factorial({
+        timeline_variables: jsPsych.randomization.factorial({
             a: jsPsych.randomization.shuffleNoRepeats(
                 jsPsych.randomization.repeat([1,2,3], 1)
             )
         })
-    }});
+    });
 
 
 
