@@ -381,30 +381,30 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
 
 
 var feedback_continue_practice1 = { //在这里呈现文字recap，让被试再记一下
-    type: jsPsychInstructions,
-    pages: function () {
-      let start = "<p class='header' style='font-size:50px'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
-        middle = "<p class='footer' style='font-size:50px'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-        end = "<p style='font-size:50px'>如果您明白了规则：</p><p style='font-size:45px'>请按 继续 进入练习</p><div>";
-      let tmpI = "";
-      view_texts_images.forEach(v => {
-        tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
-      });
-      return ["<p class='header' style='font-size:50px'>您的正确率未达到进入下一阶段练习的要求。</p>",
-        start + `<div class="box">${tmpI}</div>` +
-        `<p class='footer' style='font-size:50px'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
-        middle + end];
-    },
-    show_clickable_nav: true,
-    button_label_previous: " <span class='add_' style='color:black; font-size: 35px;'> 返回</span>",
-    button_label_next: " <span class='add_' style='color:black; font-size: 35px;'> 继续</span>",
-    on_finish: function () {
-      $("body").css("cursor", "none");
-    },
-    on_load: () => {
-      $("body").css("cursor", "default");
-    }
+  type: jsPsychInstructions,
+  pages: function () {
+    let start = "<p class='header' style='font-size:50px; line-height:55px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
+      middle = "<p class='footer' style='font-size:50px; line-height:55px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+      end = "<p style='font-size:50px; line-height:55px;'>如果您明白了规则：</p><p style='font-size:45px; line-height:50px;'>请按 继续 进入练习</p><div>";
+    let tmpI = "";
+    view_texts_images.forEach(v => {
+      tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
+    });
+    return ["<p class='header' style='font-size:50px; line-height:55px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
+      start + `<div class="box">${tmpI}</div>` +
+      `<p class='footer' style='font-size:50px; line-height:55px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px; line-height:55px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px; line-height:50px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+      middle + end];
+  },
+  show_clickable_nav: true,
+  button_label_previous: " <span class='add_' style='color:black; font-size: 35px;'> 返回</span>",
+  button_label_next: " <span class='add_' style='color:black; font-size: 35px;'> 继续</span>",
+  on_finish: function () {
+    $("body").css("cursor", "none");
+  },
+  on_load: () => {
+    $("body").css("cursor", "default");
   }
+}
 
 
 var if_node1 = { //if_node 用于判断是否呈现feedback，feedback_continue_practice
@@ -578,30 +578,30 @@ var prac_w = {
   timeline.push(feedback_gow);
 
 var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再记一下
-    type: jsPsychInstructions,
-    pages: function () {
-      let start = "<p class='header' style='font-size:50px'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
-        middle = "<p class='footer' style='font-size:50px'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-        end = "<p style='font-size:50px'>如果您明白了规则：</p><p style='font-size:45px'>请按 继续 进入练习</p><div>";
-      let tmpI = "";
-      view_texts_images.forEach(v => {
-        tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
-      });
-      return ["<p class='header' style='font-size:50px'>您的正确率未达到进入下一阶段练习的要求。</p>",
-        start + `<div class="box">${tmpI}</div>` +
-        `<p class='footer' style='font-size:50px'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
-        middle + end];
-    },
-    show_clickable_nav: true,
-    button_label_previous: " <span class='add_' style='color:black; font-size: 35px;'> 返回</span>",
-    button_label_next: " <span class='add_' style='color:black; font-size: 35px;'> 继续</span>",
-    on_finish: function () {
-      $("body").css("cursor", "none");
-    },
-    on_load: () => {
-      $("body").css("cursor", "default");
-    }
+  type: jsPsychInstructions,
+  pages: function () {
+    let start = "<p class='header' style='font-size:50px; line-height:55px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
+      middle = "<p class='footer' style='font-size:50px; line-height:55px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+      end = "<p style='font-size:50px; line-height:55px;'>如果您明白了规则：</p><p style='font-size:45px; line-height:50px;'>请按 继续 进入练习</p><div>";
+    let tmpI = "";
+    view_texts_images.forEach(v => {
+      tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
+    });
+    return ["<p class='header' style='font-size:50px; line-height:55px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
+      start + `<div class="box">${tmpI}</div>` +
+      `<p class='footer' style='font-size:50px; line-height:55px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px; line-height:55px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px; line-height:50px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+      middle + end];
+  },
+  show_clickable_nav: true,
+  button_label_previous: " <span class='add_' style='color:black; font-size: 35px;'> 返回</span>",
+  button_label_next: " <span class='add_' style='color:black; font-size: 35px;'> 继续</span>",
+  on_finish: function () {
+    $("body").css("cursor", "none");
+  },
+  on_load: () => {
+    $("body").css("cursor", "default");
   }
+}
 
 
   var if_node2 = { //if_node 用于判断是否呈现feedback，feedback_continue_practice
@@ -688,8 +688,8 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
         ],
 
         choices: ['f', 'j'],
-        canvas_width: 1000,
-        canvas_height: 1000,//由于同时呈现需要较大的空间，在这里就设置画板的高度为1000，其他情况为800
+        //canvas_width: 1000,
+        //canvas_height: 900,
     response_start_time:1100,//开始作答时间，第二个刺激开始计算
     trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:function(){return jsPsych.timelineVariable("identify")},
