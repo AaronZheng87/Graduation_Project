@@ -226,7 +226,7 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
       view_texts_images.forEach(v => {
         tmpI += `<p class="content">${v}</p>`;
       });
-      return ["<p class='header' style = 'font-size: 50px'>实验说明：</p><p style='color:white; font-size: 50px;'>您好，欢迎参加本实验。本次实验大约需要30分钟完成。</p><p style='color:white; font-size: 50px;'>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p style='color:white; font-size: 50px;'>您将学习几种几何图形与不同标签的对应关系。</p>",
+      return ["<p class='header' style = 'font-size: 50px'>实验说明：</p><p style='color:white; font-size: 50px;line-height: 55px;'>您好，欢迎参加本实验。本次实验大约需要30分钟完成。</p><p style='color:white; font-size: 50px;'>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p style='color:white; font-size: 50px;'>您将学习几种几何图形与不同标签的对应关系。</p>",
         start + `<div class="box">${tmpI}</div>` +
         `<p class='footer' style='font-size: 55px; line-height: 60px;'>您的任务是在不同图形和文字呈现顺序的条件下判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='color:white; font-size: 50px;'>如果二者匹配，请按<span style="color: lightgreen; font-size:50px">${key[0]}键</span></p><p class='footer' style='color:white; font-size: 50px;'>如果二者不匹配，请按<span style="color: lightgreen; font-size:50px"> ${key[1]}键</p></span><p class='footer' style='color:white; font-size: 40px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上准备按键。</p></span>`,
         `<p style='color:white; font-size: 50px; line-height: 55px;'>您将首先完成三组不同的刺激呈现顺序：<span style="color: yellow; ">先图形后文字、先文字后图形以及图形和文字同时呈现</span>条件下，每组72次按键的匹配任务练习。</p><p style='color:white; font-size: 50px; line-height: 55px;'>完成匹配任务的练习之后，您将完成每个条件下4组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p style='color:white; font-size: 45px; line-height: 50px;'>完成一组任务大约需要5分钟，整个实验将持续大约35分钟。</p>`,//实验时间待修改
