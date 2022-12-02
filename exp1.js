@@ -38,8 +38,8 @@ var welcome = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: `
    <p>您好，欢迎参加本次实验。</p>
-   <p>为充分保障您的权利，请确保你已经知晓并同意《参与实验同意书》以及《数据公开知情同意书》。</p>
-   <p>如果你未见过上述内容，请咨询实验员。</p>
+   <p>为充分保障您的权利，请确保您已经知晓并同意《参与实验同意书》以及《数据公开知情同意书》。</p>
+   <p>如果您未见过上述内容，请咨询实验员。</p>
    <p>如果您选择继续实验，则表示您已经清楚两份知情同意书的内容并同意。</p>
    <p> <div style = "color: green"><按任意键至下页></div> </p>
    `,
@@ -66,13 +66,13 @@ var information = {
   type: jsPsychCallFunction, //探测被试显示器数据
   func: function () {
     if ($(window).outerHeight() < 500) {
-      alert("你设备不支持实验，请进入全屏模式。若已进入全屏，请换一台高分辨率的设备，谢谢。");
+      alert("您设备不支持实验，请进入全屏模式。若已进入全屏，请换一台高分辨率的设备，谢谢。");
       window.location = "";
     }
   }
 }, {
   type: jsPsychSurveyHtmlForm,
-  preamble: "<p style =' color : white'>你的实验编号是</p>",
+  preamble: "<p style =' color : white'>您的实验编号是</p>",
   html: function () {
     let data = localStorage.getItem(info["subj_idx"]) ? JSON.parse(localStorage.getItem(info["subj_idx"]))["Name"] : "";
     return "<p><input name='Q0' type='text' value='" + data + "' required/></p>";
@@ -90,14 +90,14 @@ var information = {
   }
 }, {
   type: jsPsychHtmlButtonResponse,
-  stimulus: "<p style = 'color : white'>你的性别</p>",
+  stimulus: "<p style = 'color : white'>您的性别</p>",
   choices: ['男', '女', '其他'],
   on_finish: function (data) {
     info["Sex"] = data.response == 0 ? "Male" : (data.response == 1 ? "Female" : "Other")
   }
 }, {
   type: jsPsychSurveyHtmlForm,
-  preamble: "<p style = 'color : white'>你的出生年</p>",
+  preamble: "<p style = 'color : white'>您的出生年</p>",
   html: function () {
     let data = localStorage.getItem(info["subj_idx"]) ? JSON.parse(localStorage.getItem(info["subj_idx"]))["BirthYear"] : "";
     return `<p>
@@ -169,7 +169,7 @@ var chinrest = {
   redo_measurement_button_label: `还不够接近，请重试`,
   blindspot_done_prompt: `是的`,
   adjustment_button_prompt: `图像大小对准后，请单击此处`,
-  viewing_distance_report: `<p>根据您的反应，你坐在离屏幕<span id='distance-estimate' style='font-weight: bold;'></span> 的位置。<br>这大概是对的吗？</p> `,
+  viewing_distance_report: `<p>根据您的反应，您坐在离屏幕<span id='distance-estimate' style='font-weight: bold;'></span> 的位置。<br>这大概是对的吗？</p> `,
 };
 
 timeline.push(chinrest)
@@ -221,7 +221,7 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
     pages: function () {
       let start = "<p class='header' style = 'font-size: 50px'>请您记住如下对应关系:</p>",
         middle = "<p class='footer'  style = 'font-size: 50px'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-        end = "<p style = 'font-size: 50px; line-height: 55px;'>如果你明白了规则：请点击 继续 进入刺激呈现顺序为<span style='color: yellow;'>先图形后文字条件</span>的练习</span></p><div>";
+        end = "<p style = 'font-size: 50px; line-height: 55px;'>如果您明白了规则：请点击 继续 进入刺激呈现顺序为<span style='color: yellow;'>先图形后文字条件</span>的练习</span></p><div>";
       let tmpI = "";
       view_texts_images.forEach(v => {
         tmpI += `<p class="content">${v}</p>`;
@@ -373,8 +373,8 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
       return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
-                            <div><p class='context'>你正确回答了" + accuracy + "% 的试次。</p>" +
-        "<p class='context'>你的平均反应时为" + rt + "毫秒。</p>";
+                            <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
+        "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>";
     }
   }
 
@@ -385,7 +385,7 @@ var feedback_continue_practice1 = { //在这里呈现文字recap，让被试再�
     pages: function () {
       let start = "<p class='header' style='font-size:50px'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
         middle = "<p class='footer' style='font-size:50px'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-        end = "<p style='font-size:50px'>如果你明白了规则：</p><p style='font-size:45px'>请按 继续 进入练习</p><div>";
+        end = "<p style='font-size:50px'>如果您明白了规则：</p><p style='font-size:45px'>请按 继续 进入练习</p><div>";
       let tmpI = "";
       view_texts_images.forEach(v => {
         tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
@@ -567,9 +567,9 @@ var prac_w = {
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
       return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
-                            <div><p class='context'>你正确回答了" + accuracy + "% 的试次。</p>" +
-        "<p class='context'>你的平均反应时为" + rt + "毫秒。</p>" +
-        "<p class='context'>恭喜你完成这一阶段的练习。按任意键进入<span style='color: yellow;'>先文字后图形条件</span>的练习。</p></div>";
+                            <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
+        "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>" +
+        "<p class='context'>恭喜您完成这一阶段的练习。按任意键进入<span style='color: yellow;'>先文字后图形条件</span>的练习。</p></div>";
     },
     on_finish: function () {
       $("body").css("cursor", "none");
@@ -582,7 +582,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     pages: function () {
       let start = "<p class='header' style='font-size:50px'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
         middle = "<p class='footer' style='font-size:50px'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-        end = "<p style='font-size:50px'>如果你明白了规则：</p><p style='font-size:45px'>请按 继续 进入练习</p><div>";
+        end = "<p style='font-size:50px'>如果您明白了规则：</p><p style='font-size:45px'>请按 继续 进入练习</p><div>";
       let tmpI = "";
       view_texts_images.forEach(v => {
         tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
@@ -689,7 +689,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
 
         choices: ['f', 'j'],
         canvas_width: 1000,
-        canvas_height: 1000,
+        canvas_height: 1000,//由于同时呈现需要较大的空间，在这里就设置画板的高度为1000，其他情况为800
     response_start_time:1100,//开始作答时间，第二个刺激开始计算
     trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:function(){return jsPsych.timelineVariable("identify")},
@@ -766,9 +766,9 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
       return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
-                            <div><p class='context'>你正确回答了" + accuracy + "% 的试次。</p>" +
-        "<p class='context'>你的平均反应时为" + rt + "毫秒。</p>" +
-        "<p class='context'>恭喜你完成练习。按任意键进入<span style='color: yellow;'>图形和文字同时呈现条件</span>的练习。</p></div>";
+                            <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
+        "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>" +
+        "<p class='context'>恭喜您完成练习。按任意键进入<span style='color: yellow;'>图形和文字同时呈现条件</span>的练习。</p></div>";
     },
     on_finish: function () {
       $("body").css("cursor", "none");
@@ -779,16 +779,16 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
 var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再记一下
     type: jsPsychInstructions,
     pages: function () {
-      let start = "<p class='header' style='font-size:50px'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
-        middle = "<p class='footer' style='font-size:50px'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-        end = "<p style='font-size:50px'>如果你明白了规则：</p><p style='font-size:45px'>请按 继续 进入练习</p><div>";
+      let start = "<p class='header' style='font-size:50px; line-height:55px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
+        middle = "<p class='footer' style='font-size:50px; line-height:55px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+        end = "<p style='font-size:50px; line-height:55px;'>如果您明白了规则：</p><p style='font-size:45px; line-height:50px;'>请按 继续 进入练习</p><div>";
       let tmpI = "";
       view_texts_images.forEach(v => {
         tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
       });
-      return ["<p class='header' style='font-size:50px'>您的正确率未达到进入下一阶段练习的要求。</p>",
+      return ["<p class='header' style='font-size:50px; line-height:55px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
         start + `<div class="box">${tmpI}</div>` +
-        `<p class='footer' style='font-size:50px'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+        `<p class='footer' style='font-size:50px; line-height:55px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px; line-height:55px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px; line-height:50px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
         middle + end];
     },
     show_clickable_nav: true,
@@ -858,9 +858,9 @@ var feedback_goformal = {
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
       return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
-                            <div><p class='context'>你正确回答了" + accuracy + "% 的试次。</p>" +
-        "<p class='context'>你的平均反应时为" + rt + "毫秒。</p>" +
-        "<p class='context'>恭喜你完成练习。按任意键进入正式实验。</p>" + 
+                            <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
+        "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>" +
+        "<p class='context'>恭喜您完成练习。按任意键进入正式实验。</p>" + 
         "<p class='footer' style='font-size: 80px; line-height:85px;'>请在进入正式实验实验之前将您的<span style='color: lightgreen;'>食指</span>放在电脑键盘的相应键位上进行按键。</p>"
     },
     on_finish: function () {
@@ -1215,8 +1215,8 @@ let feedback_block = {
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
       return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
-                            <div><p class='context'>你正确回答了" + accuracy + "% 的试次。</p>" +
-        "<p class='context'>你的平均反应时为" + rt + "毫秒。</p>" +
+                            <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
+        "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>" +
         "<p class='context'>请按任意键进入休息</p></div>";
     },
     on_finish: function () {
@@ -1232,8 +1232,8 @@ let feedback_block = {
         [{ correct: true }, { correct: false }]
       );
       return `
-                    <p>你当前还剩余${blockTotalNum_image}组实验</p>
-                    <p>现在是休息时间，当你结束休息后，你可以点击 结束休息 按钮 继续</p>
+                    <p>您当前还剩余${blockTotalNum_image}组实验</p>
+                    <p>现在是休息时间，当您结束休息后，您可以点击 结束休息 按钮 继续</p>
                     <p>建议休息时间还剩余<span id="iii">60</span>秒</p>`
     },
     choices: ["结束休息"],
@@ -1264,8 +1264,8 @@ let rest_word = {
         [{ correct: true }, { correct: false }]
       );
       return `
-                    <p>你当前还剩余${blockTotalNum_word}组实验</p>
-                    <p>现在是休息时间，当你结束休息后，你可以点击 结束休息 按钮 继续</p>
+                    <p>您当前还剩余${blockTotalNum_word}组实验</p>
+                    <p>现在是休息时间，当您结束休息后，您可以点击 结束休息 按钮 继续</p>
                     <p>建议休息时间还剩余<span id="iii">60</span>秒</p>`
     },
     choices: ["结束休息"],
@@ -1298,8 +1298,8 @@ let rest_same = {
         [{ correct: true }, { correct: false }]
       );
       return `
-                    <p>你当前还剩余${blockTotalNum_same}组实验</p>
-                    <p>现在是休息时间，当你结束休息后，你可以点击 结束休息 按钮 继续</p>
+                    <p>您当前还剩余${blockTotalNum_same}组实验</p>
+                    <p>现在是休息时间，当您结束休息后，您可以点击 结束休息 按钮 继续</p>
                     <p>建议休息时间还剩余<span id="iii">60</span>秒</p>`
     },
     choices: ["结束休息"],
@@ -1326,7 +1326,7 @@ let rest_same = {
 let cong_image = {
     type: jsPsychHtmlKeyboardResponse, 
     stimulus: `
-    <p>恭喜你，正式实验中的呈现顺序为先图形后文字条件已经完成。</p>
+    <p>恭喜您，正式实验中的呈现顺序为先图形后文字条件已经完成。</p>
     <p> <div style = "color: green"><按任意键继续></div></p>
     `, 
     choices: "ALL_KEYS",
@@ -1335,7 +1335,7 @@ let cong_image = {
   let cong_word = {
     type: jsPsychHtmlKeyboardResponse, 
     stimulus: `
-    <p>恭喜你，正式实验中的呈现顺序为先文字后图片条件已经完成。</p>
+    <p>恭喜您，正式实验中的呈现顺序为先文字后图片条件已经完成。</p>
     <p> <div style = "color: green"><按任意键继续></div></p>
     `, 
     choices: "ALL_KEYS",
@@ -1344,7 +1344,7 @@ let cong_image = {
   let cong_same = {
     type: jsPsychHtmlKeyboardResponse, 
     stimulus: `
-    <p>恭喜你，正式实验中的呈现顺序为图形和文字同时呈现条件已经完成。</p>
+    <p>恭喜您，正式实验中的呈现顺序为图形和文字同时呈现条件已经完成。</p>
     <p> <div style = "color: green"><按任意键继续></div></p>
     `, 
     choices: "ALL_KEYS",
@@ -1354,7 +1354,7 @@ let cong_image = {
   let p_gotoimage = {
     type: jsPsychHtmlKeyboardResponse, 
     stimulus: `
-    <p>请你将手指放在按键上，准备进入呈现顺序为<span style='color: yellow;'>先图形后文字条件</span>的正式匹配任务</p>
+    <p>请您将手指放在按键上，准备进入呈现顺序为<span style='color: yellow;'>先图形后文字条件</span>的正式匹配任务</p>
     <p> <div style = "color: green"><按任意键进入下一阶段的匹配任务></div></p>
     `, 
     choices: "ALL_KEYS",
@@ -1363,7 +1363,7 @@ let cong_image = {
   let p_gotoword = {
     type: jsPsychHtmlKeyboardResponse, 
     stimulus: `
-    <p>请你将手指放在按键上，准备进入呈现顺序为<span style='color: yellow;'>先文字后图形条件</span>的正式匹配任务</p>
+    <p>请您将手指放在按键上，准备进入呈现顺序为<span style='color: yellow;'>先文字后图形条件</span>的正式匹配任务</p>
     <p> <div style = "color: green"><按任意键进入下一阶段的匹配任务></div></p>
     `, 
     choices: "ALL_KEYS",
@@ -1373,7 +1373,7 @@ let cong_image = {
   let p_gotosame = {
     type: jsPsychHtmlKeyboardResponse, 
     stimulus: `
-    <p>请你将手指放在按键上，准备进入呈现顺序为<span style='color: yellow;'>图形和文字同时呈现条件</span>的正式匹配任务</p>
+    <p>请您将手指放在按键上，准备进入呈现顺序为<span style='color: yellow;'>图形和文字同时呈现条件</span>的正式匹配任务</p>
     <p> <div style = "color: green"><按任意键进入下一阶段的匹配任务></div></p>
     `, 
     choices: "ALL_KEYS",
