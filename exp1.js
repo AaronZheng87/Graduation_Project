@@ -663,7 +663,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             obj_type:"image",
             file: function(){return jsPsych.timelineVariable("Image")},
             startX: "center", // location of the cross's center in the canvas
-            startY: -350, //图形和文字距离 与加号等距
+            startY: -200, //图形和文字距离 与加号等距
             width: 380,  // 调整图片大小 视角：3.8° x 3.8°
             heigth: 380, // 调整图片大小 视角：3.8° x 3.8°
             font: (380).toString() + "px 'Arial'",
@@ -675,7 +675,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             obj_type: 'text',
             file: function(){return jsPsych.timelineVariable("word")},
             startX: "center",
-            startY: 350, //图形和文字距离 与加号等距
+            startY: 200, //图形和文字距离 与加号等距2度
             content: function () {
               return jsPsych.timelineVariable("word", true);
             },
