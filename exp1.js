@@ -663,7 +663,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             obj_type:"image",
             file: function(){return jsPsych.timelineVariable("Image")},
             startX: "center", // location of the cross's center in the canvas
-            startY: -350, //图形和文字距离 与加号等距
+            startY: -200, //图形和文字距离 与加号等距
             width: 380,  // 调整图片大小 视角：3.8° x 3.8°
             heigth: 380, // 调整图片大小 视角：3.8° x 3.8°
             font: (380).toString() + "px 'Arial'",
@@ -675,7 +675,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             obj_type: 'text',
             file: function(){return jsPsych.timelineVariable("word")},
             startX: "center",
-            startY: 350, //图形和文字距离 与加号等距2度
+            startY: 200, //图形和文字距离 与加号等距2度
             content: function () {
               return jsPsych.timelineVariable("word", true);
             },
@@ -688,8 +688,8 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
         ],
 
         choices: ['f', 'j'],
-        //canvas_width: 1000,
-        //canvas_height: 900,
+        canvas_width: 800,
+        canvas_height: 800,
     response_start_time:1100,//开始作答时间，第二个刺激开始计算
     trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:function(){return jsPsych.timelineVariable("identify")},
