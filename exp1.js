@@ -216,7 +216,7 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
   });
 
 
-  var Instructions1 = {
+  var Instructions1 = {//麻烦东哥修改一下
     type: jsPsychInstructions,
     pages: function () {
       let start = "<p class='header' style = 'font-size: 50px'>请您记住如下对应关系:</p>",
@@ -644,7 +644,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
 
 
 
-  var prac_s = {
+  var prac_s = {//麻烦东哥修改一下
     timeline:[
     {
     type:jsPsychPsychophysics, 
