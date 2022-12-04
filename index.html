@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src='./jspsych-7.3.1/js/jquery.js'></script>
+    <script src='./jspsych-7.3.1/jspsych.js'></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-survey-text.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-survey-html-form.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-survey-multi-choice.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-survey-likert.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-html-button-response.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-html-keyboard-response.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-image-keyboard-response.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-video-keyboard-response.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-audio-button-response.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-preload.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-video-slider-response.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-survey-multi-select.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-html-slider-response.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-fullscreen.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-call-function.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-virtual-chinrest.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-instructions.js"></script>
+    <link href="./jspsych-7.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
+    <script src="./jspsych-psychophysics-3.4.0/jspsych-psychophysics.js"></script>
+    <script src="./jspsych-7.3.1/js/jSignature/jSignature.min.js"></script>
+    <script src="./jspsych-7.3.1/plugins/plugin-virtual-chinrest.js"></script>
+
+    <head>
+        <style>
+            body {
+                background-color: rgb(128, 128, 128);
+                /*背景灰色*/
+                color: white;
+                font-size: 25px;
+            }
+
+            p {
+                font-size: 25px;
+                line-height: 30px;
+            }
+        </style>
+    </head>
+
+</head>
+
+<body>
+</body>
+<script>
+    const jsPsych = initJsPsych({
+        /* auto_update_progress_bar: true,
+         extensions: {
+           type: naodao,
+         }*/
+        on_finish: function () {
+            jsPsych.data.displayData("json")
+        }
+    });
+
+    function getPixel(
+        distance, // 距离
+        vAngle, // 视角度数
+        screenPixe, // 屏幕像素
+        screenActual, // 屏幕物理像素
+        biasAngle = 0 // 偏角度数，默认为0，即中心点
+    ) {
+        if (biasAngle == 0) {
+            return ((Math.tan(vAngle / 2 * Math.PI / 180) * distance) / screenActual) * screenPixe * 2;
+        } else {
+            return ((Math.tan((vAngle + biasAngle) * Math.PI / 180) * distance) / screenActual) * screenPixe - ((Math.tan(biasAngle * Math.PI / 180) * distance) / screenActual) * screenPixe;
+        }
+    }
+
+    jsPsych.run([{
+        type: jsPsychPreload,
+        images: ['img/C_ambi40.png',
+            'img/S_ambi40.png',
+            'img/T_ambi40.png']
+    }, {
+        type: jsPsychVirtualChinrest,
+        blindspot_reps: 3,
+        pixels_per_unit: 50,
+        item_path: 'img/card.png',
+        adjustment_prompt: function () {
+            let html = `<p style = "font-size: 28px">首先，我们将快速测量您的显示器上像素到厘米的转换比率。</p>`;
+            html += `<p style = "font-size: 28px">请您将拿出一张真实的银行卡放在屏幕上方，单击并拖动图像的右下角，直到它与屏幕上的信用卡大小相同。</p>`;
+            html += `<p style = "font-size: 28px">您可以使用与银行卡大小相同的任何卡，如会员卡或驾照，如果您无法使用真实的卡，可以使用直尺测量图像宽度至85.6毫米。</p>`;
+            html += `<p style = "font-size: 28px"> 如果对以上操作感到困惑，请参考这个视频： <a href='https://www.naodao.com/public/stim_calibrate.mp4' target='_blank' style='font-size:24px'>参考视频</a></p>`;
+            return html
+        },
+        blindspot_prompt: function () {
+            return `<p style="text-align:left">现在，我们将快速测量您和屏幕之间的距离：<br>
+    请把您的左手放在 空格键上<br>
+    请用右手遮住右眼<br>
+    请用您的左眼专注于黑色方块。将注意力集中在黑色方块上.<br>
+    红色的球将从右向左移动，并将消失。当球一消失，就请按空格键<br>
+    如果对以上操作感到困惑，请参考这个视频：<a href='https://www.naodao.com/public/stim_calibrate.mp4' target='_blank' style='font-size:24px'>参考视频</a><br>
+    <a style="text-align:center">准备开始时，请按空格键。</a></p>`
+        },
+        blindspot_measurements_prompt: `剩余测量次数：`,
+        on_finish: function (data) {
+            console.log(data)
+        },
+        redo_measurement_button_label: `还不够接近，请重试`,
+        blindspot_done_prompt: `是的`,
+        adjustment_button_prompt: `图像大小对准后，请单击此处`,
+        viewing_distance_report: `<p>根据您的反应，您坐在离屏幕<span id='distance-estimate' style='font-weight: bold;'></span> 的位置。<br>这大概是对的吗？</p> `,
+    }, {
+        type: jsPsychCallFunction,
+        func: () => {
+            let data = jsPsych.data.get().last(1).trials[0];
+            data.item_width_mm; // 卡片物理大小
+            data.item_width_px; // 卡片像素大小
+            data.view_dist_mm; // 距离屏幕位置
+
+            let px2mm = data.item_width_px / data.item_width_mm;
+            window.screenDIY = {
+                widthPX: window.screen.width,
+                heightPX: window.screen.height,
+                widthMM: window.screen.width / px2mm,
+                heightMM: window.screen.height / px2mm,
+                dist: data.view_dist_mm
+            }
+        }
+    }, {
+        type: jsPsychPsychophysics,
+        stimuli: () => {
+            return [
+            {
+                obj_type: 'cross',
+                startX: "center", // location of the cross's center in the canvas
+                startY: "center",
+                line_length: getPixel(
+                    window.screenDIY.dist,
+                    1.8,
+                    window.screenDIY.widthPX,
+                    window.screenDIY.widthMM
+                ),
+                line_width: 5,
+                line_color: 'white', // You can use the HTML color name instead of the HEX color.
+                show_start_time: 500,
+                show_end_time: 1000// ms after the start of the trial
+            },
+            {
+                obj_type: "image",
+                file: 'img/T_ambi40.png',
+                startX: "center", // location of the cross's center in the canvas
+                startY: "center",
+                width: getPixel(
+                    window.screenDIY.dist,
+                    3.8,
+                    window.screenDIY.widthPX,
+                    window.screenDIY.widthMM
+                ),  // 调整图片大小 视角：3.8° x 3.8°
+                heigth: getPixel(
+                    window.screenDIY.dist,
+                    3.8,
+                    window.screenDIY.heightPX,
+                    window.screenDIY.heightMM
+                ), // 调整图片大小 视角：3.8° x 3.8°
+                show_start_time: 1000, // ms after the start of the trial
+                show_end_time: 1050,//出现50ms
+                // scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
+                origin_center: true//待确定
+            }
+        ]
+        },
+        choices: ['f', 'j'],
+        response_start_time: 1150,//开始作答时间，第二个刺激开始计算
+        trial_duration: 2650,//结束时间，一共作答时间持续1500ms
+        data: function () { return jsPsych.timelineVariable("identify") },
+        on_finish: function (data) {
+            data.correct_response = jsPsych.timelineVariable("identify", true)();
+            data.correct = data.correct_response == data.key_press;//0错1对
+            data.Image = jsPsych.timelineVariable("Image");
+            data.word = jsPsych.timelineVariable("word");
+            data.condition = "prac_image_first"
+        }
+    }]);
+</script>
+
+</html>
