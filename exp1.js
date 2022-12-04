@@ -685,8 +685,8 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
         ],
 
         choices: ['f', 'j'],
-        canvas_width: 800,
-        canvas_height: 800,
+       // canvas_width: 800,
+       // canvas_height: 800,
     response_start_time:1100,//开始作答时间，第二个刺激开始计算
     trial_duration:2650,//结束时间，一共作答时间持续1500ms
     data:function(){return jsPsych.timelineVariable("identify")},
