@@ -1450,19 +1450,3 @@ let cong_image = {
 
 jsPsych.run(timeline);
 
-
-// jsPsych.init({
-//     timeline: timeline,
-//     on_finish: function() {
-//     jsPsych.data.get().localSave('csv', info["ID"] + '.csv'); 
-//     document.exitFullscreen(); // 退出全屏
-//     let bodyNode = document.getElementsByTagName("body"); // 获取Body窗体
-//     for (let i = 0; i < bodyNode.length; i++) {
-//         bodyNode[i].style.cursor = "default";// 显示鼠标
-//         setTimeout(function () {
-//             window.close(); // 关闭页面
-//         }, 15000)
-//       }
-// }
-// });
-jsPsych.run(timeline);
