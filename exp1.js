@@ -144,7 +144,7 @@ var chinrest = {
   type: jsPsychVirtualChinrest,
   blindspot_reps: 3,
   resize_units: "deg",
-  pixels_per_unit: 100,
+  pixels_per_unit: 50,
   item_path:'img/card.png',
   adjustment_prompt: function(){
     let html = `<p style = "font-size: 28px">首先，我们将快速测量您的显示器上像素到厘米的转换比率。</p>`;
@@ -258,7 +258,7 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
             obj_type: 'cross',
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
-            line_length: 80,
+            line_length: 40,
             line_width: 5,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
             show_start_time: 500,
@@ -269,9 +269,8 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
             file: function(){return jsPsych.timelineVariable("Image")},
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
-            width: 380,  // 调整图片大小 视角：3.8° x 3.8°
-            heigth: 380, // 调整图片大小 视角：3.8° x 3.8°
-            font: (380).toString() + "px 'Arial'",
+            width: 190,  // 调整图片大小 视角：3.8° x 3.8°
+            heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
             show_start_time: 1000, // ms after the start of the trial
             show_end_time: 1050,//出现50ms
             // scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
@@ -285,7 +284,7 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
             content: function () {
               return jsPsych.timelineVariable('word', true);
             },
-            font: `${160}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
+            font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
 
             text_color: 'white',
             show_start_time: 1150, // ms after the start of the trial
@@ -467,9 +466,8 @@ var prac_w = {
             file: function(){return jsPsych.timelineVariable("Image")},
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
-            width: 380,  // 调整图片大小 视角：3.8° x 3.8°
-            heigth: 380, // 调整图片大小 视角：3.8° x 3.8°
-            font: (380).toString() + "px 'Arial'",
+            width: 190,  // 调整图片大小 视角：3.8° x 3.8°
+            heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
             show_start_time: 1150, // ms after the start of the trial
             show_end_time: 1200,//出现50ms
         },//上一组end时间减去下一组show时间就是空屏的100ms
@@ -481,7 +479,7 @@ var prac_w = {
             content: function () {
               return jsPsych.timelineVariable('word', true);
             },
-            font: `${160}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°, //字体和颜色设置 文字视角：3.6° x 1.6°
+            font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°, //字体和颜色设置 文字视角：3.6° x 1.6°
 
             text_color: 'white',
             show_start_time: 1000, // ms after the start of the trial
@@ -513,15 +511,15 @@ var prac_w = {
           let time = jsPsych.data.get().last(1).values()[0].rt;
           let trial_correct_response = jsPsych.data.get().last(1).values()[0].correct_response;//该trial正确的按键
           if (time > 1500 || time === null) { //大于1500或为null为过慢
-            return "<span class='add_' style='color:yellow; font-size: 90px;'> 太慢! </span>"
+            return "<span class='add_' style='color:yellow; font-size: 70px;'> 太慢! </span>"
           } else if (time < 200) { //小于两百为过快反应
-            return "<span style='color:yellow; font-size: 90px;'>过快! </span>"
+            return "<span style='color:yellow; font-size: 70px;'>过快! </span>"
           } else {
             if (keypress == trial_correct_response) { //如果按键 == 正确按键
-              return "<span style='color:GreenYellow; font-size: 90px;'>正确! </span>"
+              return "<span style='color:GreenYellow; font-size: 70px;'>正确! </span>"
             }
             else {
-              return "<span style='color:red; font-size: 90px;'>错误! </span>"
+              return "<span style='color:red; font-size: 70px;'>错误! </span>"
             }
           }
     },
@@ -653,7 +651,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             obj_type: 'cross',
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
-            line_length: 80, // pixels 视角：0.8° x 0.8°
+            line_length: 40, // pixels 视角：0.8° x 0.8°
             line_width: 5,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
             show_start_time: 500,
@@ -663,10 +661,9 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             obj_type:"image",
             file: function(){return jsPsych.timelineVariable("Image")},
             startX: "center", // location of the cross's center in the canvas
-            startY: -200, //图形和文字距离 与加号等距
-            width: 380,  // 调整图片大小 视角：3.8° x 3.8°
-            heigth: 380, // 调整图片大小 视角：3.8° x 3.8°
-            font: (380).toString() + "px 'Arial'",
+            startY: -175, //图形和文字距离 与加号等距
+            width: 190,  // 调整图片大小 视角：3.8° x 3.8°
+            heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
             show_start_time: 1000, // ms after the start of the trial
             show_end_time: 1100,//出现50ms
             origin_center: true
@@ -675,11 +672,11 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             obj_type: 'text',
             file: function(){return jsPsych.timelineVariable("word")},
             startX: "center",
-            startY: 200, //图形和文字距离 与加号等距2度
+            startY: 175, //图形和文字距离 与加号等距2度
             content: function () {
               return jsPsych.timelineVariable("word", true);
             },
-            font: `${160}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
+            font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
             text_color: 'white',
             show_start_time: 1000, // ms after the start of the trial
             show_end_time: 1100,//出现50ms
