@@ -178,8 +178,8 @@ timeline.push(chinrest)
 var fullscreen_trial = {
     type: jsPsychFullscreen,
     fullscreen_mode: true,
-    message: "<p><span class='add_' style='color:white; font-size: 50px;'> 实验需要全屏模式，实验期间请勿退出全屏。 </span></p >",
-    button_label: " <span class='add_' style='color:black; font-size: 35px;'> 点击这里进入全屏</span>"
+    message: "<p><span class='add_' style='color:white; font-size: 25px;'> 实验需要全屏模式，实验期间请勿退出全屏。 </span></p >",
+    button_label: " <span class='add_' style='color:black; font-size: 20px;'> 点击这里进入全屏</span>"
   }
 
 timeline.push(fullscreen_trial);//将全屏设置放入到时间线里
@@ -219,22 +219,22 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
   var Instructions1 = {//麻烦东哥修改一下
     type: jsPsychInstructions,
     pages: function () {
-      let start = "<p class='header' style = 'font-size: 50px'>请您记住如下对应关系:</p>",
-        middle = "<p class='footer'  style = 'font-size: 50px'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-        end = "<p style = 'font-size: 50px; line-height: 55px;'>如果您明白了规则：请点击 继续 进入刺激呈现顺序为<span style='color: yellow;'>先图形后文字条件</span>的练习</span></p><div>";
+      let start = "<p class='header' style = 'font-size: 25px'>请您记住如下对应关系:</p>",
+        middle = "<p class='footer'  style = 'font-size: 25px'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+        end = "<p style = 'font-size: 25px; line-height: 30px;'>如果您明白了规则：请点击 继续 进入刺激呈现顺序为<span style='color: yellow;'>先图形后文字条件</span>的练习</span></p><div>";
       let tmpI = "";
       view_texts_images.forEach(v => {
         tmpI += `<p class="content">${v}</p>`;
       });
-      return ["<p class='header' style = 'font-size: 50px'>实验说明：</p><p style='color:white; font-size: 50px;line-height: 55px;'>您好，欢迎参加本实验。本次实验大约需要30分钟完成。</p><p style='color:white; font-size: 50px;'>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p style='color:white; font-size: 50px;'>您将学习几种几何图形与不同标签的对应关系。</p>",
+      return ["<p class='header' style = 'font-size: 25px'>实验说明：</p><p style='color:white; font-size: 25px;line-height: 30px;'>您好，欢迎参加本实验。本次实验大约需要30分钟完成。</p><p style='color:white; font-size: 25px;'>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p style='color:white; font-size: 25px;'>您将学习几种几何图形与不同标签的对应关系。</p>",
         start + `<div class="box">${tmpI}</div>` +
-        `<p class='footer' style='font-size: 55px; line-height: 60px;'>您的任务是在不同图形和文字呈现顺序的条件下判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='color:white; font-size: 50px;'>如果二者匹配，请按<span style="color: lightgreen; font-size:50px">${key[0]}键</span></p><p class='footer' style='color:white; font-size: 50px;'>如果二者不匹配，请按<span style="color: lightgreen; font-size:50px"> ${key[1]}键</p></span><p class='footer' style='color:white; font-size: 40px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上准备按键。</p></span>`,
-        `<p style='color:white; font-size: 50px; line-height: 55px;'>您将首先完成三组不同的刺激呈现顺序：<span style="color: yellow; ">先图形后文字、先文字后图形以及图形和文字同时呈现</span>条件下，每组72次按键的匹配任务练习。</p><p style='color:white; font-size: 50px; line-height: 55px;'>完成匹配任务的练习之后，您将完成每个条件下4组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p style='color:white; font-size: 45px; line-height: 50px;'>完成一组任务大约需要5分钟，整个实验将持续大约35分钟。</p>`,//实验时间待修改
+        `<p class='footer' style='font-size: 30px; line-height: 35px;'>您的任务是在不同图形和文字呈现顺序的条件下判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='color:white; font-size: 25px;'>如果二者匹配，请按<span style="color: lightgreen; font-size:25px">${key[0]}键</span></p><p class='footer' style='color:white; font-size: 25px;'>如果二者不匹配，请按<span style="color: lightgreen; font-size:25px"> ${key[1]}键</p></span><p class='footer' style='color:white; font-size: 20px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上准备按键。</p></span>`,
+        `<p style='color:white; font-size: 25px; line-height: 30px;'>您将首先完成三组不同的刺激呈现顺序：<span style="color: yellow; ">先图形后文字、先文字后图形以及图形和文字同时呈现</span>条件下，每组72次按键的匹配任务练习。</p><p style='color:white; font-size: 25px; line-height: 30px;'>完成匹配任务的练习之后，您将完成每个条件下4组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p style='color:white; font-size: 22px; line-height: 25px;'>完成一组任务大约需要5分钟，整个实验将持续大约35分钟。</p>`,//实验时间待修改
         middle + end];
     },
     show_clickable_nav: true,
-    button_label_previous: " <span class='add_' style='color:black; font-size: 35px;'> 返回</span>",
-    button_label_next: " <span class='add_' style='color:black; font-size: 35px;'> 继续</span>",
+    button_label_previous: " <span class='add_' style='color:black; font-size: 20px;'> 返回</span>",
+    button_label_next: " <span class='add_' style='color:black; font-size: 20px;'> 继续</span>",
     on_load: () => {
       $("body").css("cursor", "default");
     },
@@ -316,15 +316,15 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
           let time = jsPsych.data.get().last(1).values()[0].rt;
           let trial_correct_response = jsPsych.data.get().last(1).values()[0].correct_response;//该trial正确的按键
           if (time > 1500 || time === null) { //大于1500或为null为过慢
-            return "<span class='add_' style='color:yellow; font-size: 90px;'> 太慢! </span>"
+            return "<span class='add_' style='color:yellow; font-size: 70px;'> 太慢! </span>"
           } else if (time < 200) { //小于两百为过快反应
-            return "<span style='color:yellow; font-size: 90px;'>过快! </span>"
+            return "<span style='color:yellow; font-size: 70px;'>过快! </span>"
           } else {
             if (keypress == trial_correct_response) { //如果按键 == 正确按键
-              return "<span style='color:GreenYellow; font-size: 90px;'>正确! </span>"
+              return "<span style='color:GreenYellow; font-size: 70px;'>正确! </span>"
             }
             else {
-              return "<span style='color:red; font-size: 90px;'>错误! </span>"
+              return "<span style='color:red; font-size: 70px;'>错误! </span>"
             }
           }
     },
@@ -371,7 +371,7 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
       });
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
-      return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
+      return "<style>.context{color:white; font-size: 35px; line-height:40px}</style>\
                             <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
         "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>";
     }
@@ -382,21 +382,21 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
 var feedback_continue_practice1 = { //在这里呈现文字recap，让被试再记一下
   type: jsPsychInstructions,
   pages: function () {
-    let start = "<p class='header' style='font-size:50px; line-height:55px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
-      middle = "<p class='footer' style='font-size:50px; line-height:55px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-      end = "<p style='font-size:50px; line-height:55px;'>如果您明白了规则：</p><p style='font-size:45px; line-height:50px;'>请按 继续 进入练习</p><div>";
+    let start = "<p class='header' style='font-size:25px; line-height:30px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
+      middle = "<p class='footer' style='font-size:25px; line-height:30px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+      end = "<p style='font-size:25px; line-height:30px;'>如果您明白了规则：</p><p style='font-size:22px; line-height:25px;'>请按 继续 进入练习</p><div>";
     let tmpI = "";
     view_texts_images.forEach(v => {
-      tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
+      tmpI += `<p class="content" style='font-size:25px'>${v}</p>`;
     });
-    return ["<p class='header' style='font-size:50px; line-height:55px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
+    return ["<p class='header' style='font-size:25px; line-height:30px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
       start + `<div class="box">${tmpI}</div>` +
-      `<p class='footer' style='font-size:50px; line-height:55px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px; line-height:55px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px; line-height:50px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+      `<p class='footer' style='font-size:25px; line-height:30px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:25px; line-height:30px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:25px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:22px; line-height:25px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
       middle + end];
   },
   show_clickable_nav: true,
-  button_label_previous: " <span class='add_' style='color:black; font-size: 35px;'> 返回</span>",
-  button_label_next: " <span class='add_' style='color:black; font-size: 35px;'> 继续</span>",
+  button_label_previous: " <span class='add_' style='color:black; font-size: 20px;'> 返回</span>",
+  button_label_next: " <span class='add_' style='color:black; font-size: 20px;'> 继续</span>",
   on_finish: function () {
     $("body").css("cursor", "none");
   },
@@ -564,7 +564,7 @@ var prac_w = {
       });
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
-      return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
+      return "<style>.context{color:white; font-size: 35px; line-height:40px}</style>\
                             <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
         "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>" +
         "<p class='context'>恭喜您完成这一阶段的练习。按任意键进入<span style='color: yellow;'>先文字后图形条件</span>的练习。</p></div>";
@@ -578,21 +578,21 @@ var prac_w = {
 var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再记一下
   type: jsPsychInstructions,
   pages: function () {
-    let start = "<p class='header' style='font-size:50px; line-height:55px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
-      middle = "<p class='footer' style='font-size:50px; line-height:55px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-      end = "<p style='font-size:50px; line-height:55px;'>如果您明白了规则：</p><p style='font-size:45px; line-height:50px;'>请按 继续 进入练习</p><div>";
+    let start = "<p class='header' style='font-size:25px; line-height:30px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
+      middle = "<p class='footer' style='font-size:25px; line-height:30px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+      end = "<p style='font-size:25px; line-height:30px;'>如果您明白了规则：</p><p style='font-size:22px; line-height:25px;'>请按 继续 进入练习</p><div>";
     let tmpI = "";
     view_texts_images.forEach(v => {
-      tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
+      tmpI += `<p class="content" style='font-size:25px'>${v}</p>`;
     });
-    return ["<p class='header' style='font-size:50px; line-height:55px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
+    return ["<p class='header' style='font-size:25px; line-height:30px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
       start + `<div class="box">${tmpI}</div>` +
-      `<p class='footer' style='font-size:50px; line-height:55px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px; line-height:55px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px; line-height:50px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+      `<p class='footer' style='font-size:25px; line-height:30px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:25px; line-height:30px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:25px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:22px; line-height:25px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
       middle + end];
   },
   show_clickable_nav: true,
-  button_label_previous: " <span class='add_' style='color:black; font-size: 35px;'> 返回</span>",
-  button_label_next: " <span class='add_' style='color:black; font-size: 35px;'> 继续</span>",
+  button_label_previous: " <span class='add_' style='color:black; font-size: 20px;'> 返回</span>",
+  button_label_next: " <span class='add_' style='color:black; font-size: 20px;'> 继续</span>",
   on_finish: function () {
     $("body").css("cursor", "none");
   },
@@ -709,15 +709,15 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
           let time = jsPsych.data.get().last(1).values()[0].rt;
           let trial_correct_response = jsPsych.data.get().last(1).values()[0].correct_response;//该trial正确的按键
           if (time > 1500 || time === null) { //大于1500或为null为过慢
-            return "<span class='add_' style='color:yellow; font-size: 90px;'> 太慢! </span>"
+            return "<span class='add_' style='color:yellow; font-size: 70px;'> 太慢! </span>"
           } else if (time < 200) { //小于两百为过快反应
-            return "<span style='color:yellow; font-size: 90px;'>过快! </span>"
+            return "<span style='color:yellow; font-size: 70px;'>过快! </span>"
           } else {
             if (keypress == trial_correct_response) { //如果按键 == 正确按键
-              return "<span style='color:GreenYellow; font-size: 90px;'>正确! </span>"
+              return "<span style='color:GreenYellow; font-size: 70px;'>正确! </span>"
             }
             else {
-              return "<span style='color:red; font-size: 90px;'>错误! </span>"
+              return "<span style='color:red; font-size: 70px;'>错误! </span>"
             }
           }
     },
@@ -762,7 +762,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
       });
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
-      return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
+      return "<style>.context{color:white; font-size: 35px; line-height:40px}</style>\
                             <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
         "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>" +
         "<p class='context'>恭喜您完成练习。按任意键进入<span style='color: yellow;'>图形和文字同时呈现条件</span>的练习。</p></div>";
@@ -776,21 +776,21 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
 var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再记一下
     type: jsPsychInstructions,
     pages: function () {
-      let start = "<p class='header' style='font-size:50px; line-height:55px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
-        middle = "<p class='footer' style='font-size:50px; line-height:55px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
-        end = "<p style='font-size:50px; line-height:55px;'>如果您明白了规则：</p><p style='font-size:45px; line-height:50px;'>请按 继续 进入练习</p><div>";
+      let start = "<p class='header' style='font-size:25px; line-height:30px;'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
+        middle = "<p class='footer' style='font-size:25px; line-height:30px;'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+        end = "<p style='font-size:25px; line-height:30px;'>如果您明白了规则：</p><p style='font-size:22px; line-height:25px;'>请按 继续 进入练习</p><div>";
       let tmpI = "";
       view_texts_images.forEach(v => {
-        tmpI += `<p class="content" style='font-size:50px'>${v}</p>`;
+        tmpI += `<p class="content" style='font-size:25px'>${v}</p>`;
       });
-      return ["<p class='header' style='font-size:50px; line-height:55px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
+      return ["<p class='header' style='font-size:25px; line-height:30px;'>您的正确率未达到进入下一阶段练习的要求。</p>",
         start + `<div class="box">${tmpI}</div>` +
-        `<p class='footer' style='font-size:50px; line-height:55px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:50px; line-height:55px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:50px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:45px; line-height:50px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+        `<p class='footer' style='font-size:25px; line-height:30px;'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='font-size:25px; line-height:30px;'>如果二者匹配，请按 <span style="color: lightgreen;">${key[0]} 键</span></p><p class='footer' style='font-size:25px'>如果二者不匹配，请按<span style="color: lightgreen;"> ${key[1]} 键</p></span><p class='footer' style='font-size:22px; line-height:25px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
         middle + end];
     },
     show_clickable_nav: true,
-    button_label_previous: " <span class='add_' style='color:black; font-size: 35px;'> 返回</span>",
-    button_label_next: " <span class='add_' style='color:black; font-size: 35px;'> 继续</span>",
+    button_label_previous: " <span class='add_' style='color:black; font-size: 20px;'> 返回</span>",
+    button_label_next: " <span class='add_' style='color:black; font-size: 20px;'> 继续</span>",
     on_finish: function () {
       $("body").css("cursor", "none");
     },
@@ -854,11 +854,11 @@ var feedback_goformal = {
       });
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
-      return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
+      return "<style>.context{color:white; font-size: 35px; line-height:40px}</style>\
                             <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
         "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>" +
         "<p class='context'>恭喜您完成练习。按任意键进入正式实验。</p>" + 
-        "<p class='footer' style='font-size: 80px; line-height:85px;'>请在进入正式实验实验之前将您的<span style='color: lightgreen;'>食指</span>放在电脑键盘的相应键位上进行按键。</p>"
+        "<p class='footer' style='font-size: 35px; line-height:40px;'>请在进入正式实验实验之前将您的<span style='color: lightgreen;'>食指</span>放在电脑键盘的相应键位上进行按键。</p>"
     },
     on_finish: function () {
       $("body").css("cursor", "none");
@@ -934,15 +934,15 @@ let image_first = {
           let time = jsPsych.data.get().last(1).values()[0].rt;
           let trial_correct_response = jsPsych.data.get().last(1).values()[0].correct_response;//该trial正确的按键
           if (time > 1500 || time === null) { //大于1500或为null为过慢
-            return "<span class='add_' style='color:yellow; font-size: 90px;'> 太慢! </span>"
+            return "<span class='add_' style='color:yellow; font-size: 70px;'> 太慢! </span>"
           } else if (time < 200) { //小于两百为过快反应
-            return "<span style='color:yellow; font-size: 90px;'>过快! </span>"
+            return "<span style='color:yellow; font-size: 70px;'>过快! </span>"
           } else {
             if (keypress == trial_correct_response) { //如果按键 == 正确按键
-              return "<span style='color:GreenYellow; font-size: 90px;'>正确! </span>"
+              return "<span style='color:GreenYellow; font-size: 70px;'>正确! </span>"
             }
             else {
-              return "<span style='color:red; font-size: 90px;'>错误! </span>"
+              return "<span style='color:red; font-size: 70px;'>错误! </span>"
             }
           }
     },
@@ -1043,15 +1043,15 @@ let word_first = {
           let time = jsPsych.data.get().last(1).values()[0].rt;
           let trial_correct_response = jsPsych.data.get().last(1).values()[0].correct_response;//该trial正确的按键
           if (time > 1500 || time === null) { //大于1500或为null为过慢
-            return "<span class='add_' style='color:yellow; font-size: 90px;'> 太慢! </span>"
+            return "<span class='add_' style='color:yellow; font-size: 70px;'> 太慢! </span>"
           } else if (time < 200) { //小于两百为过快反应
-            return "<span style='color:yellow; font-size: 90px;'>过快! </span>"
+            return "<span style='color:yellow; font-size: 70px;'>过快! </span>"
           } else {
             if (keypress == trial_correct_response) { //如果按键 == 正确按键
-              return "<span style='color:GreenYellow; font-size: 90px;'>正确! </span>"
+              return "<span style='color:GreenYellow; font-size: 70px;'>正确! </span>"
             }
             else {
-              return "<span style='color:red; font-size: 90px;'>错误! </span>"
+              return "<span style='color:red; font-size: 70px;'>错误! </span>"
             }
           }
     },
@@ -1152,15 +1152,15 @@ let word_first = {
           let time = jsPsych.data.get().last(1).values()[0].rt;
           let trial_correct_response = jsPsych.data.get().last(1).values()[0].correct_response;//该trial正确的按键
           if (time > 1500 || time === null) { //大于1500或为null为过慢
-            return "<span class='add_' style='color:yellow; font-size: 90px;'> 太慢! </span>"
+            return "<span class='add_' style='color:yellow; font-size: 70px;'> 太慢! </span>"
           } else if (time < 200) { //小于两百为过快反应
-            return "<span style='color:yellow; font-size: 90px;'>过快! </span>"
+            return "<span style='color:yellow; font-size: 70px;'>过快! </span>"
           } else {
             if (keypress == trial_correct_response) { //如果按键 == 正确按键
-              return "<span style='color:GreenYellow; font-size: 90px;'>正确! </span>"
+              return "<span style='color:GreenYellow; font-size: 70px;'>正确! </span>"
             }
             else {
-              return "<span style='color:red; font-size: 90px;'>错误! </span>"
+              return "<span style='color:red; font-size: 70px;'>错误! </span>"
             }
           }
     },
@@ -1211,7 +1211,7 @@ let feedback_block = {
       });
       let accuracy = Math.round(correct_trials.count() / trials.count() * 100);
       let rt = Math.round(correct_trials.select('rt').mean());
-      return "<style>.context{color:white; font-size: 80px; line-height:85px}</style>\
+      return "<style>.context{color:white; font-size: 35px; line-height:40px}</style>\
                             <div><p class='context'>您正确回答了" + accuracy + "% 的试次。</p>" +
         "<p class='context'>您的平均反应时为" + rt + "毫秒。</p>" +
         "<p class='context'>请按任意键进入休息</p></div>";
