@@ -1,14 +1,20 @@
 const jsPsych = initJsPsych({
- /* auto_update_progress_bar: true,
-  extensions: {
-    type: naodao,
-  }*/
-  on_finish: function(){
-     let subject_id = jsPsych.randomization.randomID(15);
-     let fileName = subject_id.toString() + '.csv'
-     jsPsych.data.get().localSave('csv', fileName);
-   },
-  });
+  /* auto_update_progress_bar: true,
+   extensions: {
+     type: naodao,
+   }*/
+   on_finish: function() {
+    jsPsych.data.get().localSave('csv', info["ID"] + '.csv'); 
+    document.exitFullscreen(); // 退出全屏
+    let bodyNode = document.getElementsByTagName("body"); // 获取Body窗体
+    for (let i = 0; i < bodyNode.length; i++) {
+        bodyNode[i].style.cursor = "default";// 显示鼠标
+        setTimeout(function () {
+            window.close(); // 关闭页面
+    }, 15000)
+           }
+          }
+   });
 
 
 
@@ -179,7 +185,7 @@ var fullscreen_trial = {
     type: jsPsychFullscreen,
     fullscreen_mode: true,
     message: "<p><span class='add_' style='color:white; font-size: 25px;'> 实验需要全屏模式，实验期间请勿退出全屏。 </span></p >",
-    button_label: " <span class='add_' style='color:black; font-size: 20px;'> 点击这里进入全屏</span>"
+    button_label: " <span class='add_' style='color:black; font-size: 25px;'> 点击这里进入全屏</span>"
   }
 
 timeline.push(fullscreen_trial);//将全屏设置放入到时间线里
@@ -443,7 +449,7 @@ var if_node1 = { //if_node 用于判断是否呈现feedback，feedback_continue_
       }
     }
   }
-  timeline.push(loop_node1);
+  //timeline.push(loop_node1);
 
 
 var prac_w = {
@@ -455,7 +461,7 @@ var prac_w = {
             obj_type: 'cross',
             startX: "center", // location of the cross's center in the canvas
             startY: "center",
-            line_length: 80,//pixels 视角：0.8° x 0.8°
+            line_length: 40,//pixels 视角：0.8° x 0.8°
             line_width: 5,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
             show_start_time: 500,
@@ -573,7 +579,7 @@ var prac_w = {
       $("body").css("cursor", "none");
     }
   }
-  timeline.push(feedback_gow);
+  //timeline.push(feedback_gow);
 
 var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再记一下
   type: jsPsychInstructions,
@@ -638,7 +644,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
       }
     }
   }
-  timeline.push(loop_node2);
+  //timeline.push(loop_node2);
 
 
 
@@ -771,7 +777,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
       $("body").css("cursor", "none");
     }
   }
-  timeline.push(feedback_gos);
+ // timeline.push(feedback_gos);
 
 var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再记一下
     type: jsPsychInstructions,
@@ -836,7 +842,7 @@ var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再�
       }
     }
   }
-  timeline.push(loop_node3);
+  //timeline.push(loop_node3);
 
 
 
@@ -864,7 +870,7 @@ var feedback_goformal = {
       $("body").css("cursor", "none");
     }
   }
-  timeline.push(feedback_goformal);
+  //timeline.push(feedback_goformal);
 
 
 
@@ -873,42 +879,43 @@ let image_first = {
     {
     type:jsPsychPsychophysics, 
     stimuli:[
-        {
-            obj_type: 'cross',
-            startX: "center", // location of the cross's center in the canvas
-            startY: "center",
-            line_length: 62.5 * scale,
-            line_width: 5 * scale,
-            line_color: 'white', // You can use the HTML color name instead of the HEX color.
-            show_start_time: 500,
-            show_end_time: 1000// ms after the start of the trial
-        }, 
-        {
-            obj_type:"image",
-            file: function(){return jsPsych.timelineVariable("Image")},
-            startX: "center", // location of the cross's center in the canvas
-            startY: "center",
-            font: (50).toString() + "px 'Arial'",
-            show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1050,//出现50ms
-            scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
-            origin_center: true//待确定
-        },//上一组end时间减去下一组show时间就是空屏的100ms
-        {
-            obj_type: 'text',
-            file: function(){return jsPsych.timelineVariable("word")},
-            startX: "center",
-            startY: "center", //图形和文字距离 与加号等距
-            content: function () {
-              return jsPsych.timelineVariable('word', true);
-            },
-            font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
+      {
+        obj_type: 'cross',
+        startX: "center", // location of the cross's center in the canvas
+        startY: "center",
+        line_length: 40,
+        line_width: 5,
+        line_color: 'white', // You can use the HTML color name instead of the HEX color.
+        show_start_time: 500,
+        show_end_time: 1000// ms after the start of the trial
+    }, 
+    {
+        obj_type:"image",
+        file: function(){return jsPsych.timelineVariable("Image")},
+        startX: "center", // location of the cross's center in the canvas
+        startY: "center",
+        width: 190,  // 调整图片大小 视角：3.8° x 3.8°
+        heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
+        show_start_time: 1000, // ms after the start of the trial
+        show_end_time: 1050,//出现50ms
+        // scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
+        origin_center: true//待确定
+    },//上一组end时间减去下一组show时间就是空屏的100ms
+    {
+        obj_type: 'text',
+        file: function(){return function(){return jsPsych.timelineVariable("word")}},
+        startX: "center",
+        startY: "center", //图形和文字距离 与加号等距
+        content: function () {
+          return jsPsych.timelineVariable('word', true);
+        },
+        font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
 
-            text_color: 'white',
-            show_start_time: 1150, // ms after the start of the trial
-            show_end_time: 1200,//出现50ms
-            origin_center: true//带确定
-          }
+        text_color: 'white',
+        show_start_time: 1150, // ms after the start of the trial
+        show_end_time: 1200,//出现50ms
+        origin_center: true//带确定
+      }
         ],
 
         choices: ['f', 'j'],
@@ -983,41 +990,41 @@ let word_first = {
     {
     type:jsPsychPsychophysics, 
     stimuli:[
-        {
-            obj_type: 'cross',
-            startX: "center", // location of the cross's center in the canvas
-            startY: "center",
-            line_length: 62.5 * scale,//pixels 视角：0.8° x 0.8°
-            line_width: 5 * scale,
-            line_color: 'white', // You can use the HTML color name instead of the HEX color.
-            show_start_time: 500,
-            show_end_time: 1000// ms after the start of the trial
-        }, 
-        {
-            obj_type:"image",
-            file: function(){return jsPsych.timelineVariable("Image")},
-            startX: "center", // location of the cross's center in the canvas
-            startY: "center",
-            font: (50).toString() + "px 'Arial'",
-            show_start_time: 1150, // ms after the start of the trial
-            show_end_time: 1200,//出现50ms
-            scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
-        },//上一组end时间减去下一组show时间就是空屏的100ms
-        {
-            obj_type: 'text',
-            file: function(){return jsPsych.timelineVariable("word")},
-            startX: "center",
-            startY: "center", //图形和文字距离 与加号等距
-            content: function () {
-              return jsPsych.timelineVariable('word', true);
-            },
-            font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°, //字体和颜色设置 文字视角：3.6° x 1.6°
+      {
+        obj_type: 'cross',
+        startX: "center", // location of the cross's center in the canvas
+        startY: "center",
+        line_length: 40,//pixels 视角：0.8° x 0.8°
+        line_width: 5,
+        line_color: 'white', // You can use the HTML color name instead of the HEX color.
+        show_start_time: 500,
+        show_end_time: 1000// ms after the start of the trial
+    }, 
+    {
+        obj_type:"image",
+        file: function(){return jsPsych.timelineVariable("Image")},
+        startX: "center", // location of the cross's center in the canvas
+        startY: "center",
+        width: 190,  // 调整图片大小 视角：3.8° x 3.8°
+        heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
+        show_start_time: 1150, // ms after the start of the trial
+        show_end_time: 1200,//出现50ms
+    },//上一组end时间减去下一组show时间就是空屏的100ms
+    {
+        obj_type: 'text',
+        file: function(){return jsPsych.timelineVariable("word")},
+        startX: "center",
+        startY: "center", //图形和文字距离 与加号等距
+        content: function () {
+          return jsPsych.timelineVariable('word', true);
+        },
+        font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°, //字体和颜色设置 文字视角：3.6° x 1.6°
 
-            text_color: 'white',
-            show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1050,//出现50ms
-            origin_center: true
-          }
+        text_color: 'white',
+        show_start_time: 1000, // ms after the start of the trial
+        show_end_time: 1050,//出现50ms
+        origin_center: true
+      }
         ],
 
         choices: ['f', 'j'],
@@ -1092,41 +1099,41 @@ let word_first = {
     {
     type:jsPsychPsychophysics, 
     stimuli:[
-        {
-            obj_type: 'cross',
-            startX: "center", // location of the cross's center in the canvas
-            startY: "center",
-            line_length: 62.5 * scale, // pixels 视角：0.8° x 0.8°
-            line_width: 5 * scale,
-            line_color: 'white', // You can use the HTML color name instead of the HEX color.
-            show_start_time: 500,
-            show_end_time: 1100// ms after the start of the trial
-        }, 
-       {
-            obj_type:"image",
-            file: function(){return jsPsych.timelineVariable("Image")},
-            startX: "center", // location of the cross's center in the canvas
-            startY: -165.29 * scale, //图形和文字距离 与加号等距
-            font: (50).toString() + "px 'Arial'",
-            show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1100,//出现50ms
-            scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
-            origin_center: true
-        },//上一组end时间减去下一组show时间就是空屏的100ms
-        {
-            obj_type: 'text',
-            file: function(){return jsPsych.timelineVariable("word")},
-            startX: "center",
-            startY: 165.29 * scale, //图形和文字距离 与加号等距
-            content: function () {
-              return jsPsych.timelineVariable("word", true);
-            },
-            font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
-            text_color: 'white',
-            show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1100,//出现50ms
-            origin_center: true
-          }
+      {
+        obj_type: 'cross',
+        startX: "center", // location of the cross's center in the canvas
+        startY: "center",
+        line_length: 40, // pixels 视角：0.8° x 0.8°
+        line_width: 5,
+        line_color: 'white', // You can use the HTML color name instead of the HEX color.
+        show_start_time: 500,
+        show_end_time: 1100// ms after the start of the trial
+    }, 
+   {
+        obj_type:"image",
+        file: function(){return jsPsych.timelineVariable("Image")},
+        startX: "center", // location of the cross's center in the canvas
+        startY: -175, //图形和文字距离 与加号等距
+        width: 190,  // 调整图片大小 视角：3.8° x 3.8°
+        heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
+        show_start_time: 1000, // ms after the start of the trial
+        show_end_time: 1100,//出现50ms
+        origin_center: true
+    },//上一组end时间减去下一组show时间就是空屏的100ms
+    {
+        obj_type: 'text',
+        file: function(){return jsPsych.timelineVariable("word")},
+        startX: "center",
+        startY: 175, //图形和文字距离 与加号等距2度
+        content: function () {
+          return jsPsych.timelineVariable("word", true);
+        },
+        font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
+        text_color: 'white',
+        show_start_time: 1000, // ms after the start of the trial
+        show_end_time: 1100,//出现50ms
+        origin_center: true
+      }
         ],
 
         choices: ['f', 'j'],
@@ -1435,7 +1442,7 @@ let cong_image = {
     stimulus: `
     <p>感谢您参加我们的实验，请<span style="color: yellow;">按任意键开始上传数据</span>，并通知研究者。</p>
     <p>感谢您的配合！</p>`,
-    choices: ' ',
+    choices: "ALL_KEYS",
   };
   timeline.push(finish);
 
@@ -1458,3 +1465,4 @@ jsPsych.run(timeline);
 //       }
 // }
 // });
+jsPsych.run(timeline);
