@@ -7,12 +7,6 @@ const jsPsych = initJsPsych({
     jsPsych.data.get().localSave('csv', info["ID"] + '.csv'); 
     document.exitFullscreen(); // 退出全屏
     let bodyNode = document.getElementsByTagName("body"); // 获取Body窗体
-    for (let i = 0; i < bodyNode.length; i++) {
-        bodyNode[i].style.cursor = "default";// 显示鼠标
-        setTimeout(function () {
-            window.close(); // 关闭页面
-    }, 15000)
-           }
           }
    });
 
@@ -215,13 +209,6 @@ let view_texts_images = [];
 
 
 
-//设置根据屏幕控制显示图形大小方位一致
-let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
-  $(window).resize(function () {
-    scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
-  });
-
-
   var Instructions1 = {//麻烦东哥修改一下
     type: jsPsychInstructions,
     pages: function () {
@@ -279,7 +266,6 @@ let scale = Math.min($(document).width() / 2560, $(document).height() / 1600);
             heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
             show_start_time: 1000, // ms after the start of the trial
             show_end_time: 1050,//出现50ms
-            // scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
             origin_center: true//待确定
         },//上一组end时间减去下一组show时间就是空屏的100ms
         {
@@ -898,7 +884,6 @@ let image_first = {
         heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
         show_start_time: 1000, // ms after the start of the trial
         show_end_time: 1050,//出现50ms
-        // scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
         origin_center: true//待确定
     },//上一组end时间减去下一组show时间就是空屏的100ms
     {
