@@ -4,7 +4,7 @@ const jsPsych = initJsPsych({
      type: naodao,
    }*/
    on_finish: function() {
-    jsPsych.data.get().localSave('csv', info["ID"] + '.csv'); 
+    jsPsych.data.get().localSave('csv', 'exp1' + info["ID"] + '.csv'); 
     document.exitFullscreen(); // 退出全屏
     let bodyNode = document.getElementsByTagName("body"); // 获取Body窗体
           }
@@ -15,12 +15,6 @@ const jsPsych = initJsPsych({
 var timeline = [] //设置一个时间线
 
 
-// function getwidth(){
-//   let screen_width = screen.width;
-//   let stimuli_width_mm = Math.tan(3.8/180*Math.PI)*1000;
-//   let stimuli_width_px =    / 25.4 * ppi;
-
-// }
 
 
 
@@ -179,7 +173,7 @@ var fullscreen_trial = {
     type: jsPsychFullscreen,
     fullscreen_mode: true,
     message: "<p><span class='add_' style='color:white; font-size: 25px;'> 实验需要全屏模式，实验期间请勿退出全屏。 </span></p >",
-    button_label: " <span class='add_' style='color:black; font-size: 25px;'> 点击这里进入全屏</span>"
+    button_label: " <span class='add_' style='color:black; font-size: 20px;'> 点击这里进入全屏</span>"
   }
 
 timeline.push(fullscreen_trial);//将全屏设置放入到时间线里
@@ -203,13 +197,13 @@ var words = ["圆形", "方形", "三角"]//储存文字
 
 var key = ['f', 'j']//按键
 //正确率70%
-let acc = 70;
+let acc = 0;
 let view_texts_images = [];
 
 
 
 
-  var Instructions1 = {//麻烦东哥修改一下
+  var Instructions1 = {
     type: jsPsychInstructions,
     pages: function () {
       let start = "<p class='header' style = 'font-size: 25px'>请您记住如下对应关系:</p>",
@@ -219,10 +213,10 @@ let view_texts_images = [];
       view_texts_images.forEach(v => {
         tmpI += `<p class="content">${v}</p>`;
       });
-      return ["<p class='header' style = 'font-size: 25px'>实验说明：</p><p style='color:white; font-size: 25px;line-height: 30px;'>您好，欢迎参加本实验。本次实验大约需要30分钟完成。</p><p style='color:white; font-size: 25px;'>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p style='color:white; font-size: 25px;'>您将学习几种几何图形与不同标签的对应关系。</p>",
+      return ["<p class='header' style = 'font-size: 25px'>实验说明：</p><p style='color:white; font-size: 25px;line-height: 30px;'>您好，欢迎参加本实验。本次实验大约需要40分钟完成。</p><p style='color:white; font-size: 25px;'>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p style='color:white; font-size: 25px;'>您将学习几种几何图形与不同标签的对应关系。</p>",
         start + `<div class="box">${tmpI}</div>` +
         `<p class='footer' style='font-size: 30px; line-height: 35px;'>您的任务是在不同图形和文字呈现顺序的条件下判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='color:white; font-size: 25px;'>如果二者匹配，请按<span style="color: lightgreen; font-size:25px">${key[0]}键</span></p><p class='footer' style='color:white; font-size: 25px;'>如果二者不匹配，请按<span style="color: lightgreen; font-size:25px"> ${key[1]}键</p></span><p class='footer' style='color:white; font-size: 20px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上准备按键。</p></span>`,
-        `<p style='color:white; font-size: 25px; line-height: 30px;'>您将首先完成三组不同的刺激呈现顺序：<span style="color: yellow; ">先图形后文字、先文字后图形以及图形和文字同时呈现</span>条件下，每组72次按键的匹配任务练习。</p><p style='color:white; font-size: 25px; line-height: 30px;'>完成匹配任务的练习之后，您将完成每个条件下4组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p style='color:white; font-size: 22px; line-height: 25px;'>完成一组任务大约需要5分钟，整个实验将持续大约35分钟。</p>`,//实验时间待修改
+        `<p style='color:white; font-size: 25px; line-height: 30px;'>您将首先完成三组不同的刺激呈现顺序：<span style="color: yellow; ">先图形后文字、先文字后图形以及图形和文字同时呈现</span>条件下，每组72次按键的匹配任务练习。</p><p style='color:white; font-size: 25px; line-height: 30px;'>完成匹配任务的练习之后，您将完成每个条件下4组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p style='color:white; font-size: 22px; line-height: 25px;'>完成一组任务大约需要7分钟，整个实验将持续大约40分钟。</p>`,//实验时间待修改
         middle + end];
     },
     show_clickable_nav: true,
@@ -344,7 +338,7 @@ let view_texts_images = [];
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:1,//正是实验时改为6
+    repetitions:6,//正是实验时改为6
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -356,7 +350,7 @@ let view_texts_images = [];
     stimulus: function () {
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12); // 运行逻辑：先挑出data里的所有的correct：true/false的数据行，成为新的数组，然后对倒数的某几组进行计算
+      ).last(72); // 运行逻辑：先挑出data里的所有的correct：true/false的数据行，成为新的数组，然后对倒数的某几组进行计算
       //这里填入timeline_variables里面的trial数量
       let correct_trials = trials.filter({
         correct: true
@@ -403,7 +397,7 @@ var if_node1 = { //if_node 用于判断是否呈现feedback，feedback_continue_
     conditional_function: function (data) {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
+      ).last(72);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
       var correct_trials = trials.filter({
         correct: true
       });
@@ -423,7 +417,7 @@ var if_node1 = { //if_node 用于判断是否呈现feedback，feedback_continue_
     loop_function: function () {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);//记得改，取数据
+      ).last(72);//记得改，取数据
       var correct_trials = trials.filter({
         correct: true
       });
@@ -435,7 +429,7 @@ var if_node1 = { //if_node 用于判断是否呈现feedback，feedback_continue_
       }
     }
   }
-  //timeline.push(loop_node1);
+  timeline.push(loop_node1);
 
 
 var prac_w = {
@@ -539,7 +533,7 @@ var prac_w = {
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:1,
+    repetitions:6,
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -550,7 +544,7 @@ var prac_w = {
     stimulus: function () {
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);
+      ).last(72);
       let correct_trials = trials.filter({
         correct: true
       });
@@ -565,7 +559,7 @@ var prac_w = {
       $("body").css("cursor", "none");
     }
   }
-  //timeline.push(feedback_gow);
+ timeline.push(feedback_gow);
 
 var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再记一下
   type: jsPsychInstructions,
@@ -599,7 +593,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     conditional_function: function (data) {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
+      ).last(72);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
       var correct_trials = trials.filter({
         correct: true
       });
@@ -618,7 +612,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     loop_function: function () {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);//记得改，取数据
+      ).last(72);//记得改，取数据
       var correct_trials = trials.filter({
         correct: true
       });
@@ -630,11 +624,11 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
       }
     }
   }
-  //timeline.push(loop_node2);
+  timeline.push(loop_node2);
 
 
 
-  var prac_s = {//麻烦东哥修改一下
+  var prac_s = {
     timeline:[
     {
     type:jsPsychPsychophysics, 
@@ -737,7 +731,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:1,//正是实验时改为6
+    repetitions:6,//正是实验时改为6
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -748,7 +742,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     stimulus: function () {
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);
+      ).last(72);
       let correct_trials = trials.filter({
         correct: true
       });
@@ -797,7 +791,7 @@ var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再�
     conditional_function: function (data) {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
+      ).last(72);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
       var correct_trials = trials.filter({
         correct: true
       });
@@ -816,7 +810,7 @@ var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再�
     loop_function: function () {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);//记得改，取数据
+      ).last(72);//记得改，取数据
       var correct_trials = trials.filter({
         correct: true
       });
@@ -828,7 +822,7 @@ var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再�
       }
     }
   }
-  //timeline.push(loop_node3);
+  timeline.push(loop_node3);
 
 
 
@@ -840,7 +834,7 @@ var feedback_goformal = {
     stimulus: function () {
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);
+      ).last(72);
       let correct_trials = trials.filter({
         correct: true
       });
@@ -856,7 +850,7 @@ var feedback_goformal = {
       $("body").css("cursor", "none");
     }
   }
-  //timeline.push(feedback_goformal);
+  timeline.push(feedback_goformal);
 
 
 
@@ -962,7 +956,7 @@ let image_first = {
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:1,//正是实验时改为6
+    repetitions:6,//正是实验时改为6
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -1071,7 +1065,7 @@ let word_first = {
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:1,//正是实验时改为6
+    repetitions:6,//正是实验时改为6
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -1180,7 +1174,7 @@ let word_first = {
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:1,//正是实验时改为6
+    repetitions:6,//正是实验时改为6
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -1197,7 +1191,7 @@ let feedback_block = {
       // aaaaa = 1;  筛选，必须要！！！！！！！！！！！
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(12);// last()填入一个block里的trial总数
+      ).last(72);// last()填入一个block里的trial总数
       let correct_trials = trials.filter({
         correct: true
       });
@@ -1213,7 +1207,7 @@ let feedback_block = {
     }
   };
 
-  let blockTotalNum_image = 0;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+  let blockTotalNum_image = 3;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
   let rest_image = {
   type:jsPsychHtmlButtonResponse,
   stimulus: function () {
@@ -1245,7 +1239,7 @@ let feedback_block = {
     }
   }
 
-let blockTotalNum_word = 0;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+let blockTotalNum_word = 3;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
 let rest_word = {
   type:jsPsychHtmlButtonResponse,
   stimulus: function () {
@@ -1279,7 +1273,7 @@ let rest_word = {
 
  
 
-  let blockTotalNum_same = 0;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
+  let blockTotalNum_same = 3;// 此处填入总block数量-1，比如总数量是3，那么值就需要是2
 let rest_same = {
   type:jsPsychHtmlButtonResponse,
   stimulus: function () {
@@ -1372,7 +1366,7 @@ let cong_image = {
         p_gotoimage,
         {
             timeline: [image_first, feedback_block, rest_image],
-            repetitions: 1 //4个block
+            repetitions: 4 //4个block
         },
         cong_image
     ];
@@ -1381,7 +1375,7 @@ let cong_image = {
         p_gotoword,
         {
             timeline: [word_first, feedback_block, rest_word],
-            repetitions: 1
+            repetitions: 4
         },
         cong_word
     ];
@@ -1390,7 +1384,7 @@ let cong_image = {
         p_gotosame,
         {
             timeline: [same, feedback_block, rest_same],
-            repetitions: 1
+            repetitions: 4
         },
         cong_same
     ];
