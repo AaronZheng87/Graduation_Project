@@ -429,7 +429,7 @@ var if_node1 = { //if_node 用于判断是否呈现feedback，feedback_continue_
       }
     }
   }
-  timeline.push(loop_node1);
+  //timeline.push(loop_node1);
 
 
 var prac_w = {
@@ -624,7 +624,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
       }
     }
   }
-  timeline.push(loop_node2);
+  //timeline.push(loop_node2);
 
 
 
@@ -822,7 +822,7 @@ var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再�
       }
     }
   }
-  timeline.push(loop_node3);
+  //timeline.push(loop_node3);
 
 
 
@@ -850,7 +850,7 @@ var feedback_goformal = {
       $("body").css("cursor", "none");
     }
   }
-  timeline.push(feedback_goformal);
+  //timeline.push(feedback_goformal);
 
 
 
@@ -1366,7 +1366,7 @@ let cong_image = {
         p_gotoimage,
         {
             timeline: [image_first, feedback_block, rest_image],
-            repetitions: 4 //4个block
+            repetitions: 1 //4个block
         },
         cong_image
     ];
@@ -1375,7 +1375,7 @@ let cong_image = {
         p_gotoword,
         {
             timeline: [word_first, feedback_block, rest_word],
-            repetitions: 4
+            repetitions: 1
         },
         cong_word
     ];
@@ -1384,7 +1384,7 @@ let cong_image = {
         p_gotosame,
         {
             timeline: [same, feedback_block, rest_same],
-            repetitions: 4
+            repetitions: 1
         },
         cong_same
     ];

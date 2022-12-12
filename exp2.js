@@ -202,8 +202,8 @@ const jsPsych = initJsPsych({
   var texts = ["好人", "坏人", "常人"]//储存文字
   
   var key = ['f', 'j']//按键
-  //正确率70%
-  let acc = 0;
+  //正确率60%
+  let acc = 60;
   let view_texts_images = [];
   
   
@@ -763,7 +763,7 @@ const jsPsych = initJsPsych({
         $("body").css("cursor", "none");
       }
     }
-   // timeline.push(feedback_gos);
+    timeline.push(feedback_gos);
   
   var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再记一下
       type: jsPsychInstructions,
