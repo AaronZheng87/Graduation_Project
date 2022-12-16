@@ -677,10 +677,8 @@ const jsPsych = initJsPsych({
           ],
   
           choices: ['f', 'j'],
-         // canvas_width: 800,
-         // canvas_height: 800,
-      response_start_time:1100,//开始作答时间，第二个刺激开始计算
-      trial_duration:2650,//结束时间，一共作答时间持续1500ms
+      response_start_time:1000,//开始作答时间，第二个刺激开始计算
+      trial_duration:2500,//结束时间，一共作答时间持续1500ms
       data:function(){return jsPsych.timelineVariable("identify")},
       on_finish: function(data){
           data.correct_response = jsPsych.timelineVariable("identify", true)();
@@ -1122,8 +1120,8 @@ const jsPsych = initJsPsych({
           ],
   
           choices: ['f', 'j'],
-      response_start_time:1100,//开始作答时间，第二个刺激开始计算
-      trial_duration:2650,//结束时间，一共作答时间持续1500ms
+      response_start_time:1000,//开始作答时间，从刺激呈现开始计算
+      trial_duration:2500,//结束时间，一共作答时间持续1500ms
       data:function(){return jsPsych.timelineVariable("identify")},
       on_finish: function(data){
           data.correct_response = jsPsych.timelineVariable("identify", true)();

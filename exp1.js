@@ -651,9 +651,9 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             width: 190,  // 调整图片大小 视角：3.8° x 3.8°
             heigth: 190, // 调整图片大小 视角：3.8° x 3.8°
             show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1100,//出现50ms
+            show_end_time: 1100,//出现100ms
             origin_center: true
-        },//上一组end时间减去下一组show时间就是空屏的100ms
+        },
         {
             obj_type: 'text',
             file: function(){return jsPsych.timelineVariable("word")},
@@ -665,16 +665,14 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
             font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
             text_color: 'white',
             show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1100,//出现50ms
+            show_end_time: 1100,//出现100ms
             origin_center: true
           }
         ],
 
         choices: ['f', 'j'],
-       // canvas_width: 800,
-       // canvas_height: 800,
-    response_start_time:1100,//开始作答时间，第二个刺激开始计算
-    trial_duration:2650,//结束时间，一共作答时间持续1500ms
+    response_start_time:1000,//开始作答时间，第二个刺激开始计算
+    trial_duration:2500,//结束时间，一共作答时间持续1500ms
     data:function(){return jsPsych.timelineVariable("identify")},
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
@@ -1116,8 +1114,8 @@ let word_first = {
         ],
 
         choices: ['f', 'j'],
-    response_start_time:1100,//开始作答时间，第二个刺激开始计算
-    trial_duration:2650,//结束时间，一共作答时间持续1500ms
+    response_start_time:1000,//开始作答时间，第二个刺激开始计算
+    trial_duration:2500,//结束时间，一共作答时间持续1500ms
     data:function(){return jsPsych.timelineVariable("identify")},
     on_finish: function(data){
         data.correct_response = jsPsych.timelineVariable("identify", true)();
