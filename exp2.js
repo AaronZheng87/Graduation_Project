@@ -199,7 +199,7 @@ const jsPsych = initJsPsych({
   
   
   
-  var texts = ["好人", "坏人", "常人"]//储存文字
+  var texts = ["好人", "常人", "坏人"]//储存文字
   
   var key = ['f', 'j']//按键
   //正确率60%
@@ -270,11 +270,10 @@ const jsPsych = initJsPsych({
           },//上一组end时间减去下一组show时间就是空屏的100ms
           {
               obj_type: 'text',
-              file: function(){return function(){return jsPsych.timelineVariable("word")}},
               startX: "center",
               startY: "center", //图形和文字距离 与加号等距
               content: function () {
-                return jsPsych.timelineVariable('word', true);
+                return jsPsych.timelineVariable('word', true)();//记得后面要加括号
               },
               font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
   
@@ -293,7 +292,7 @@ const jsPsych = initJsPsych({
           data.correct_response = jsPsych.timelineVariable("identify", true)();
           data.correct = data.correct_response == data.key_press;//0错1对
           data.Image = jsPsych.timelineVariable("Image");
-          data.word = jsPsych.timelineVariable("word");
+          data.word = jsPsych.timelineVariable("word", true)();//加括号
           data.condition = "prac_image_first"
       }
   },
@@ -325,23 +324,22 @@ const jsPsych = initJsPsych({
       trial_duration:300,//300ms反馈
   }
   ],
-  
       timeline_variables:[
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
+          {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+          {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+          {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
   
-          {Image:images[0], word:texts[1], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[0], identify:function(){return key[1]}},
+          {Image:images[0], word:function(){return texts[1]}, identify:function(){return key[1]}},
+          {Image:images[1], word:function(){return texts[2]}, identify:function(){return key[1]}},
+          {Image:images[2], word:function(){return texts[0]}, identify:function(){return key[1]}},
   
-          {Image:images[0], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[0], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[1], identify:function(){return key[1]}},
+          {Image:images[0], word:function(){return texts[2]}, identify:function(){return key[1]}},
+          {Image:images[1], word:function(){return texts[0]}, identify:function(){return key[1]}},
+          {Image:images[2], word:function(){return texts[1]}, identify:function(){return key[1]}},
   
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
+          {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+          {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+          {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
       repetitions:2,//正是实验时改为6
@@ -469,7 +467,7 @@ const jsPsych = initJsPsych({
               startX: "center",
               startY: "center", //图形和文字距离 与加号等距
               content: function () {
-                return jsPsych.timelineVariable('word', true);
+                return jsPsych.timelineVariable('word', true)();
               },
               font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°, //字体和颜色设置 文字视角：3.6° x 1.6°
   
@@ -488,7 +486,7 @@ const jsPsych = initJsPsych({
           data.correct_response = jsPsych.timelineVariable("identify", true)();
           data.correct = data.correct_response == data.key_press;//0错1对
           data.Image = jsPsych.timelineVariable("Image");
-          data.word = jsPsych.timelineVariable("word");
+          data.word = jsPsych.timelineVariable('word', true)();
           data.condition = "prac_word_first"
       }
   },
@@ -522,21 +520,21 @@ const jsPsych = initJsPsych({
   ],
   
       timeline_variables:[
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
-  
-          {Image:images[0], word:texts[1], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[0], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[0], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[1], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
+
+        {Image:images[0], word:function(){return texts[1]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[0]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[0]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[1]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
       repetitions:2,
@@ -666,7 +664,7 @@ const jsPsych = initJsPsych({
               startX: "center",
               startY: 175, //图形和文字距离 与加号等距2度
               content: function () {
-                return jsPsych.timelineVariable("word", true);
+                return jsPsych.timelineVariable('word', true)();
               },
               font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
               text_color: 'white',
@@ -684,7 +682,7 @@ const jsPsych = initJsPsych({
           data.correct_response = jsPsych.timelineVariable("identify", true)();
           data.correct = data.correct_response == data.key_press;//0错1对
           data.Image = jsPsych.timelineVariable("Image");
-          data.word = jsPsych.timelineVariable("word");
+          data.word = jsPsych.timelineVariable('word', true)();
           data.condition = "prac_simultaneous"
       }
   },
@@ -718,21 +716,21 @@ const jsPsych = initJsPsych({
   ],
   
       timeline_variables:[
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
-  
-          {Image:images[0], word:texts[1], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[0], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[0], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[1], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
+
+        {Image:images[0], word:function(){return texts[1]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[0]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[0]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[1]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
       repetitions:2,//正是实验时改为6
@@ -886,11 +884,11 @@ const jsPsych = initJsPsych({
       },//上一组end时间减去下一组show时间就是空屏的100ms
       {
           obj_type: 'text',
-          file: function(){return function(){return jsPsych.timelineVariable("word")}},
+           
           startX: "center",
           startY: "center", //图形和文字距离 与加号等距
           content: function () {
-            return jsPsych.timelineVariable('word', true);
+            return jsPsych.timelineVariable('word', true)();
           },
           font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
   
@@ -909,7 +907,7 @@ const jsPsych = initJsPsych({
           data.correct_response = jsPsych.timelineVariable("identify", true)();
           data.correct = data.correct_response == data.key_press;//0错1对
           data.Image = jsPsych.timelineVariable("Image");
-          data.word = jsPsych.timelineVariable("word");
+          data.word = jsPsych.timelineVariable("word", true)();
           data.condition = "image_first"
       }
   },
@@ -943,21 +941,21 @@ const jsPsych = initJsPsych({
   ],
   
       timeline_variables:[
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
-  
-          {Image:images[0], word:texts[1], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[0], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[0], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[1], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
+
+        {Image:images[0], word:function(){return texts[1]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[0]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[0]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[1]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
       repetitions:6,//正是实验时改为6
@@ -999,7 +997,7 @@ const jsPsych = initJsPsych({
           startX: "center",
           startY: "center", //图形和文字距离 与加号等距
           content: function () {
-            return jsPsych.timelineVariable('word', true);
+            return jsPsych.timelineVariable('word', true)();
           },
           font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°, //字体和颜色设置 文字视角：3.6° x 1.6°
   
@@ -1018,7 +1016,7 @@ const jsPsych = initJsPsych({
           data.correct_response = jsPsych.timelineVariable("identify", true)();
           data.correct = data.correct_response == data.key_press;//0错1对
           data.Image = jsPsych.timelineVariable("Image")
-          data.word = jsPsych.timelineVariable("word");
+          data.word = jsPsych.timelineVariable("word", true)();
           data.condition = "word_first"
       }
   },
@@ -1052,21 +1050,21 @@ const jsPsych = initJsPsych({
   ],
   
       timeline_variables:[
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
-  
-          {Image:images[0], word:texts[1], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[0], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[0], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[1], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
+
+        {Image:images[0], word:function(){return texts[1]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[0]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[0]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[1]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
       repetitions:6,//正是实验时改为6
@@ -1109,7 +1107,7 @@ const jsPsych = initJsPsych({
           startX: "center",
           startY: 175, //图形和文字距离 与加号等距2度
           content: function () {
-            return jsPsych.timelineVariable("word", true);
+            return jsPsych.timelineVariable("word", true)();
           },
           font: `${80}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
           text_color: 'white',
@@ -1127,7 +1125,7 @@ const jsPsych = initJsPsych({
           data.correct_response = jsPsych.timelineVariable("identify", true)();
           data.correct = data.correct_response == data.key_press;//0错1对
           data.Image = jsPsych.timelineVariable("Image");
-          data.word = jsPsych.timelineVariable("word");
+          data.word = jsPsych.timelineVariable("word", true)();
           data.condition = "simultaneous"
       }
   },
@@ -1161,21 +1159,21 @@ const jsPsych = initJsPsych({
   ],
   
       timeline_variables:[
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
-  
-          {Image:images[0], word:texts[1], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[0], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[2], identify:function(){return key[1]}},
-          {Image:images[1], word:texts[0], identify:function(){return key[1]}},
-          {Image:images[2], word:texts[1], identify:function(){return key[1]}},
-  
-          {Image:images[0], word:texts[0], identify:function(){return key[0]}},
-          {Image:images[1], word:texts[1], identify:function(){return key[0]}},
-          {Image:images[2], word:texts[2], identify:function(){return key[0]}},
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
+
+        {Image:images[0], word:function(){return texts[1]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[0]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[2]}, identify:function(){return key[1]}},
+        {Image:images[1], word:function(){return texts[0]}, identify:function(){return key[1]}},
+        {Image:images[2], word:function(){return texts[1]}, identify:function(){return key[1]}},
+
+        {Image:images[0], word:function(){return texts[0]}, identify:function(){return key[0]}},
+        {Image:images[1], word:function(){return texts[1]}, identify:function(){return key[0]}},
+        {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
       repetitions:6,//正是实验时改为6
