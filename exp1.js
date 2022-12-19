@@ -216,7 +216,7 @@ let view_texts_images = [];
       return ["<p class='header' style = 'font-size: 25px'>实验说明：</p><p style='color:white; font-size: 25px;line-height: 30px;'>您好，欢迎参加本实验。本次实验大约需要40分钟完成。</p><p style='color:white; font-size: 25px;'>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p style='color:white; font-size: 25px;'>您将学习几种几何图形与不同标签的对应关系。</p>",
         start + `<div class="box">${tmpI}</div>` +
         `<p class='footer' style='font-size: 30px; line-height: 35px;'>您的任务是在不同图形和文字呈现顺序的条件下判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer' style='color:white; font-size: 25px;'>如果二者匹配，请按<span style="color: lightgreen; font-size:25px">${key[0]}键</span></p><p class='footer' style='color:white; font-size: 25px;'>如果二者不匹配，请按<span style="color: lightgreen; font-size:25px"> ${key[1]}键</p></span><p class='footer' style='color:white; font-size: 20px;'>请在实验过程中将您的<span style="color: lightgreen;">食指</span>放在电脑键盘的相应键位上准备按键。</p></span>`,
-        `<p style='color:white; font-size: 25px; line-height: 30px;'>您将首先完成三组不同的刺激呈现顺序：<span style="color: yellow; ">先图形后文字、先文字后图形以及图形和文字同时呈现</span>条件下，每组72次按键的匹配任务练习。</p><p style='color:white; font-size: 25px; line-height: 30px;'>完成匹配任务的练习之后，您将完成每个条件下4组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p style='color:white; font-size: 22px; line-height: 25px;'>完成一组任务大约需要7分钟，整个实验将持续大约40分钟。</p>`,//实验时间待修改
+        `<p style='color:white; font-size: 25px; line-height: 30px;'>您将首先完成三组不同的刺激呈现顺序：<span style="color: yellow; ">先图形后文字、先文字后图形以及图形和文字同时呈现</span>条件下，每组24次按键的匹配任务练习。</p><p style='color:white; font-size: 25px; line-height: 30px;'>完成匹配任务的练习之后，您将完成每个条件下4组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p style='color:white; font-size: 22px; line-height: 25px;'>完成一组任务大约需要7分钟，整个实验将持续大约40分钟。</p>`,//实验时间待修改
         middle + end];
     },
     show_clickable_nav: true,
@@ -338,7 +338,7 @@ let view_texts_images = [];
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:6,//正是实验时改为6
+    repetitions:2,
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -350,7 +350,7 @@ let view_texts_images = [];
     stimulus: function () {
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72); // 运行逻辑：先挑出data里的所有的correct：true/false的数据行，成为新的数组，然后对倒数的某几组进行计算
+      ).last(24); // 运行逻辑：先挑出data里的所有的correct：true/false的数据行，成为新的数组，然后对倒数的某几组进行计算
       //这里填入timeline_variables里面的trial数量
       let correct_trials = trials.filter({
         correct: true
@@ -397,7 +397,7 @@ var if_node1 = { //if_node 用于判断是否呈现feedback，feedback_continue_
     conditional_function: function (data) {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
+      ).last(24);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
       var correct_trials = trials.filter({
         correct: true
       });
@@ -417,7 +417,7 @@ var if_node1 = { //if_node 用于判断是否呈现feedback，feedback_continue_
     loop_function: function () {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);//记得改，取数据
+      ).last(24);//记得改，取数据
       var correct_trials = trials.filter({
         correct: true
       });
@@ -533,7 +533,7 @@ var prac_w = {
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:6,
+    repetitions:2,
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -544,7 +544,7 @@ var prac_w = {
     stimulus: function () {
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);
+      ).last(24);
       let correct_trials = trials.filter({
         correct: true
       });
@@ -593,7 +593,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     conditional_function: function (data) {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
+      ).last(24);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
       var correct_trials = trials.filter({
         correct: true
       });
@@ -612,7 +612,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     loop_function: function () {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);//记得改，取数据
+      ).last(24);//记得改，取数据
       var correct_trials = trials.filter({
         correct: true
       });
@@ -729,7 +729,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
         {Image:images[2], word:words[2], identify:function(){return key[0]}},
     ],
     randomize_order:true,
-    repetitions:6,//正是实验时改为6
+    repetitions:2,
     on_finish:function(){
         // $("body").css("cursor", "default"); //鼠标出现
     }
@@ -740,7 +740,7 @@ var feedback_continue_practice2 = { //在这里呈现文字recap，让被试再�
     stimulus: function () {
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);
+      ).last(24);
       let correct_trials = trials.filter({
         correct: true
       });
@@ -789,7 +789,7 @@ var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再�
     conditional_function: function (data) {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
+      ).last(24);//这里注意：只需要上一组的练习数据，而不是所有的数据！！ 如何实现：.last() 取data最后的几组数据（上一组练习数据）
       var correct_trials = trials.filter({
         correct: true
       });
@@ -808,7 +808,7 @@ var feedback_continue_practice3 = { //在这里呈现文字recap，让被试再�
     loop_function: function () {
       var trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);//记得改，取数据
+      ).last(24);//记得改，取数据
       var correct_trials = trials.filter({
         correct: true
       });
@@ -832,7 +832,7 @@ var feedback_goformal = {
     stimulus: function () {
       let trials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
-      ).last(72);
+      ).last(24);
       let correct_trials = trials.filter({
         correct: true
       });
