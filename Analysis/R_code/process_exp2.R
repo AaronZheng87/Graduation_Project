@@ -46,7 +46,7 @@ for (i in seq_along(filenames)){
       )
     ) %>% 
     filter(!grepl("prac_", condition)) %>% 
-    mutate(exp = "exp1")
+    mutate(exp = "exp2")
 }
 
 df <- do.call(rbind, data)

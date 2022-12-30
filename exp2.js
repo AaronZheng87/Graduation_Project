@@ -958,7 +958,7 @@ const jsPsych = initJsPsych({
         {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
-      repetitions:6,//正是实验时改为6
+      repetitions:5,//正是实验时改为6
       on_finish:function(){
           // $("body").css("cursor", "default"); //鼠标出现
       }
@@ -1067,7 +1067,7 @@ const jsPsych = initJsPsych({
         {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
-      repetitions:6,//正是实验时改为6
+      repetitions:5,//正是实验时改为6
       on_finish:function(){
           // $("body").css("cursor", "default"); //鼠标出现
       }
@@ -1176,7 +1176,7 @@ const jsPsych = initJsPsych({
         {Image:images[2], word:function(){return texts[2]}, identify:function(){return key[0]}},
       ],
       randomize_order:true,
-      repetitions:6,//正是实验时改为6
+      repetitions:5,//正是实验时改为6
       on_finish:function(){
           // $("body").css("cursor", "default"); //鼠标出现
       }
