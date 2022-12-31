@@ -51,3 +51,21 @@ for (i in seq_along(filenames)){
 
 df <- do.call(rbind, data)
 
+
+
+df$subj_idx <- as.numeric(df$subj_idx)
+
+
+df2 <- df %>% 
+  mutate(matchness = 
+           case_when(subj_idx %% 2 == 1 & correct_response == "j" ~ "match", 
+                     subj_idx %% 2 == 1 & correct_response == "f" ~ "mismatch", 
+                     subj_idx %% 2 == 0 & correct_response == "f" ~ "match", 
+                     subj_idx %% 2 == 0 & correct_response == "j" ~ "mismatch"))
+
+
+s5 <- df2 %>% 
+  filter(subj_idx == 5) %>% 
+  group_by(valence, matchness) %>% 
+  summarise(n = n())
+
