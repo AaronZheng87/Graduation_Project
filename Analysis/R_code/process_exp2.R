@@ -64,8 +64,13 @@ df2 <- df %>%
                      subj_idx %% 2 == 0 & correct_response == "j" ~ "mismatch"))
 
 
-s5 <- df2 %>% 
-  filter(subj_idx == 5) %>% 
-  group_by(valence, matchness) %>% 
+s6 <- df2 %>% 
+  filter(subj_idx == 6) %>% 
+  group_by(valence, matchness, condition) %>% 
   summarise(n = n())
 
+
+df3 <- df2 %>% 
+  filter(rt != "null")
+
+# write_csv(df3, "clean_test.csv")
