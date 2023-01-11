@@ -65,7 +65,7 @@ df2 <- df %>%
 
 
 s6 <- df2 %>% 
-  filter(subj_idx == 6) %>% 
+  filter(subj_idx == 7) %>% 
   group_by(valence, matchness, condition) %>% 
   summarise(n = n())
 
