@@ -7,7 +7,7 @@ library(hypr)
 library(bridgesampling)
 #devtools::install_github("RobinHankin/Brobdingnag")
 #update.packages("dbplyr")
-
+#installed.packages()[names(sessionInfo()$otherPkgs), "Version"]
 
 options(mc.cores = parallel::detectCores())
 
@@ -50,60 +50,50 @@ contrasts(df_bf$matchness) <- contr.hypothesis(m)
 
 
 
-model01 <- brm(rt ~ valence * matchness * condition + (valence * matchness * condition|subj_idx), 
-              data = df_bf, 
-              family = gaussian(),
-              control = list(adapt_delta = .99, max_treedepth = 12),
-              save_all_pars = TRUE)
 
-model02 <- brm(rt ~ valence + matchness + condition + valennce:matchness + valence:condition + matchness:condition + (valence * matchness * condition|subj_idx), 
-    data = df_bf, 
-    family = gaussian(),
-    control = list(adapt_delta = .99, max_treedepth = 12),
-    save_all_pars = TRUE)
+###############################
 
-summary(model01)
+bf_result <- data.frame(effect = "inx", N = NA, BF = NA)
 
-summary(model02)
+subj <- sort(unique(df_bf$subj_idx))#对被试编号进行排序
 
-BF <- bridgesampling::bayes_factor(model01, model02)
-BF[["bf"]]
-
-##########################################BF##############
-df_bf$subj_idx <- as.character(df_bf$subj_idx)
-
-subjects <- unique(df_bf$subj_idx)
-
-N_total <- length(unique(df_bf$subj_idx))
-
-Ns  <- c(seq(2, N_total, by = 2), N_total)
-
-BFs_int <- c()
+Ns <- c(seq(3, 6, by = 3))#每三个被试测一次（未来看情况修改）
 
 for (i in Ns) {
-  data <- subset(df_bf, subj_idx %in% head(subjects, i))
+  data <- subset(df_bf, subj_idx %in% head(subj, i))
+  
+  message(length(unique(data$subj_idx)), " subjects")
 
-  print(paste0(i, sep = " ", "subjects"))
-  
-  model1 <- brm(rt ~ valence * matchness * condition + (valence * matchness * condition|subj_idx), 
-                data = data, 
+  model1 <- brm(rt ~ valence * matchness * condition + (valence * matchness * condition|subj_idx),
+                data = data,
                 family = gaussian(),
-                save_all_pars = TRUE)
-  
+                iter=10000, warmup=2000, chains = 4,
+                control = list(adapt_delta = .99, max_treedepth = 12),  
+                save_pars = save_pars(all = TRUE))
+
   gc()
-  
+
   summary(model1)
-  
-  model2 <- brm(rt ~ valence + matchness + condition + valence:matchness + valence:condition + matchness:condition + (valence * matchness * condition|subj_idx), 
-                data = data, 
+
+  model2 <- brm(rt ~ valence + matchness + condition + valence:matchness + valence:condition + matchness:condition + (valence * matchness * condition|subj_idx),
+                data = data,
                 family = gaussian(),
-                save_all_pars = TRUE)
-  
+                iter=10000, warmup=2000, chains = 4,
+                control = list(adapt_delta = .99, max_treedepth = 12),  
+                save_pars = save_pars(all = TRUE))
+
   summary(model2)
-  
-  BFs_int <- append(BFs_int, bridgesampling::bayes_factor(model1, model2)[["bf"]])
-  
-  
+
+  (BF = bayes_factor(model1, model2))
+
+  tmp <- data.frame(effect = "inx", N = i, BF = BF[[1]])
+  bf_result <- rbind(bf_result, tmp)
+  print(bf_result)
 }
 
-BFs_int
+
+
+
+
+
+
